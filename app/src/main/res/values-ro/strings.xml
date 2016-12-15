@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Liga ETc</string>
+    <string name="author">Autor: Andrei Moldovan</string>
+    <string name="guest">Vizitator</string>
+    <string name="user">Utilizator:</string>
+    <string name="btn_azi">Azi</string>
+    <string name="btn_maine">Mâine</string>
+    <string name="lbl_subgroup">Subgrupă:</string>
+    <string name="lbl_year">An:</string>
+    <string name="lbl_group">Grupă:</string>
+    <string name="lbl_series">Serie:</string>
+    <string name="btn_options">Opțiuni</string>
+</resources>

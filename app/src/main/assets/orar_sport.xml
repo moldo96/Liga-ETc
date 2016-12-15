@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sport>
+  <Jogging>
+    <materie prof ="Ionescu" loc="Baza 1">
+      <zi_0>
+        <ora_i>16:00</ora_i>
+        <ora_i>17:30</ora_i>
+      </zi_0>
+      <zi_1>
+        <ora_i>17:30</ora_i>
+      </zi_1>
+      <zi_2>
+        <ora_i>16:00</ora_i>
+        <ora_i>17:30</ora_i>
+      </zi_2>
+      <zi_3>
+        <ora_i>16:00</ora_i>
+        <ora_i>17:30</ora_i>
+      </zi_3>
+    </materie>
+    <materie prof="Alexandru" loc="Baza 1">
+      <zi_0>
+        <ora_i>17:30</ora_i>
+      </zi_0>
+      <zi_1>
+        <ora_i>16:00</ora_i>
+        <ora_i>17:30</ora_i>
+      </zi_1>
+      <zi_3>
+        <ora_i>14:00</ora_i>
+        <ora_i>16:00</ora_i>
+        <ora_i>17:30</ora_i>
+      </zi_3>
+    </materie>
+    <materie prof="Chirilă D." loc="Baza 1">
+      <zi_0>
+        <ora_i>16:00</ora_i>
+      </zi_0>
+      <zi_1>
+        <ora_i>10:00</ora_i>
+        <ora_i>12:00</ora_i>
+        <ora_i>16:00</ora_i>
+      </zi_1>
+      <zi_2>
+        <ora_i>16:00</ora_i>
+      </zi_2>
+      <zi_4>
+        <ora_i>10:00</ora_i>
+        <ora_i>16:00</ora_i>
+      </zi_4>
+    </materie>
+  </Jogging>
+  <Fitness>
+    <materie prof="Chirilă M." loc="Baza 1">
+      <zi_0>
+        <ora_i>8:30</ora_i>
+      </zi_0>
+      <zi_1>
+        <ora_i>8:30</ora_i>
+        <ora_i>10:00</ora_i>
+        <ora_i>12:00</ora_i>
+      </zi_1>
+      <zi_2>
+        <ora_i>8:30</ora_i>
+      </zi_2>
+      <zi_4>
+        <ora_i>8:30</ora_i>
+        <ora_i>10:00</ora_i>
+      </zi_4>
+    </materie>
+    <materie prof="Gui Bachner" loc="Baza 1">
+      <zi_0>
+        <ora_i>14:00</ora_i>
+      </zi_0>
+      <zi_1>
+        <ora_i>14:00</ora_i>
+      </zi_1>
+      <zi_2>
+        <ora_i>14:00</ora_i>
+      </zi_2>
+      <zi_3>
+        <ora_i>14:00</ora_i>
+      </zi_3>
+    </materie>
+    <materie prof="Sărăndan" loc="Baza 1">
+      <zi_2>
+        <ora_i>12:00</ora_i>
+      </zi_2>
+      <zi_3>
+        <ora_i>14:00</ora_i>
+      </zi_3>
+    </materie>
+    <materie prof="Ciorsac" loc="Baza 1">
+      <zi_4>
+        <ora_i>12:00</ora_i>
+        <ora_i>14:00</ora_i>
+      </zi_4>
+    </materie>
+  </Fitness>
+  <Culturism>
+    <materie prof="Ciorsac" loc="Baza 1">
+      <zi_0>
+        <ora_i>10:00</ora_i>
+        <ora_i>12:00</ora_i>
+      </zi_0>
+      <zi_3>
+        <ora_i>8:30</ora_i>
+        <ora_i>10:00</ora_i>
+        <ora_i>12:00</ora_i>
+      </zi_3>
+    </materie>
+    <materie prof="Sărăndan" loc="Baza 1">
+      <zi_2>
+        <ora_i>10:00</ora_i>
+      </zi_2>
+    </materie>
+  </Culturism>
+  <Fotbal>
+    <materie prof="Molcuț" loc="Baza 1">
+      <zi_0>
+        <ora_i>14:00</ora_i>
+      </zi_0>
+      <zi_1>
+        <ora_i>12:00</ora_i>
+        <ora_i>14:00</ora_i>
+      </zi_1>
+      <zi_3>
+        <ora_i>12:00</ora_i>
+        <ora_i>14:00</ora_i>
+      </zi_3>
+      <zi_4>
+        <ora_i>12:00</ora_i>
+      </zi_4>
+    </materie>
+    <materie prof="Boiț" loc="Baza 1">
+      <zi_2>
+        <ora_i>12:00</ora_i>
+        <ora_i>14:00</ora_i>
+      </zi_2>
+    </materie>
+    <materie prof ="Szabo" loc="Baza 2">
+      <zi_0>
+        <ora_i>16:00</ora_i>
+        <ora_i>17:30</ora_i>
+      </zi_0>
+      <zi_1>
+        <ora_i>16:00</ora_i>
+        <ora_i>17:30</ora_i>
+      </zi_1>
+      <zi_2>
+        <ora_i>16:00</ora_i>
+        <ora_i>17:30</ora_i>
+      </zi_2>
+      <zi_3>
+        <ora_i>16:00</ora_i>
+        <ora_i>17:30</ora_i>
+      </zi_3>
+    </materie>
+  </Fotbal>
+  <Baschet_3X3>
+    <materie prof ="Gui Bachner" loc="Baza 2">
+      <zi_0>
+        <ora_i>16:00</ora_i>
+      </zi_0>
+      <zi_1>
+        <ora_i>16:00</ora_i>
+      </zi_1>
+      <zi_2>
+        <ora_i>16:00</ora_i>
+      </zi_2>
+      <zi_3>
+        <ora_i>16:00</ora_i>
+      </zi_3>
+    </materie>
+  </Baschet_3X3>
+  <Înot>
+    <materie prof ="Ciorsac" loc="Baza 2">
+      <zi_1>
+        <ora_i>8:30</ora_i>
+      </zi_1>
+      <zi_4>
+        <ora_i>8:30</ora_i>
+      </zi_4>
+    </materie>
+    <materie prof ="Alexandru" loc="Baza 2">
+      <zi_2>
+        <ora_i>8:30</ora_i>
+      </zi_2>
+    </materie>
+    <materie prof ="Varga" loc="Baza 2">
+      <zi_3>
+        <ora_i>8:30</ora_i>
+      </zi_3>
+    </materie>
+  </Înot>
+  <Aerobic>
+    <materie prof ="Varga" loc="Baza 2">
+      <zi_0>
+        <ora_i>10:00</ora_i>
+        <ora_i>14:00</ora_i>
+      </zi_0>
+      <zi_1>
+        <ora_i>14:00</ora_i>
+      </zi_1>
+      <zi_2>
+        <ora_i>10:00</ora_i>
+        <ora_i>14:00</ora_i>
+      </zi_2>
+      <zi_3>
+        <ora_i>14:00</ora_i>
+      </zi_3>
+    </materie>
+  </Aerobic>
+  <Pilates>
+    <materie prof ="Varga" loc="Baza 2">
+      <zi_1>
+        <ora_i>10:00</ora_i>
+      </zi_1>
+      <zi_3>
+        <ora_i>10:00</ora_i>
+      </zi_3>
+    </materie>
+  </Pilates>
+</sport>

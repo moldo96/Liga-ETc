@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Liga ETc</string>
+    <string name="liga" translatable="false">Liga</string>
+    <string name="user">User:</string>
+    <string name="btn_azi">Today</string>
+    <string name="guest">Guest</string>
+    <string name="radiobutton" translatable="false">RadioButton</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="student" translatable="false">Student</string>
+    <string name="author">Author: Andrei Moldovan</string>
+    <string name="username" translatable="false">Username:</string>
+    <string name="lbl_year">Year:</string>
+    <string name="lbl_series">Series:</string>
+    <string name="lbl_group">Group:</string>
+    <string name="lbl_subgroup">Subgroup:</string>
+    <string name="btn_options">Options</string>
+    <string name="btn_maine">In 1 Day</string>
+    <string-array name="group_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+
+</resources>

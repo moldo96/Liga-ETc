@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:id="opt_student"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl_author"
+        android:text="@string/author"
+        android:layout_marginBottom="12dp"
+        tools:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lbl_author"
+        android:layout_marginStart="50dp"
+        android:id="@+id/radio_student"
+        android:layout_marginBottom="40dp"
+        >
+
+        <RadioButton
+            android:text="@string/guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/opt_guest"
+            android:contentDescription="@string/guest"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:text="@string/student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/opt_student"
+            android:checked="true"
+            android:layout_marginTop="20sp"
+
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:textSize="18sp" />
+    </RadioGroup>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/lsfetc"
+        android:id="@+id/img_ligaintro"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/lbl_user"
+        android:layout_marginBottom="50dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/liga" />
+
+    <Button
+        android:text="@string/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_ok"
+        android:textColor="@android:color/holo_orange_light"
+        android:textCursorDrawable="@android:color/background_light"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        />
+
+    <TextView
+        android:text="@string/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl_user"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_above="@+id/radio_student"
+        android:layout_alignStart="@+id/radio_student" />
+
+
+</RelativeLayout>

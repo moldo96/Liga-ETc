@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="liga" translatable="false">liga</string>
+    <string name="guest">Guest</string>
+</resources>

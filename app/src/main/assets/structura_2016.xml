@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<structura_an>
+
+    <predare zi_i="26" luna_i="9" zi_s="29" luna_s="11" an_i="2016" an_s="2016"></predare>
+    <vacanta zi_i="30" luna_i="11" zi_s="4" luna_s="12" an_i="2016" an_s="2016"></vacanta>
+    <predare zi_i="5" luna_i="12" zi_s="23" luna_s="12" an_i="2016" an_s="2016"></predare>
+    <predare zi_i="9" luna_i="1" zi_s="13" luna_s="1" an_i="2017" an_s="2017"></predare>
+    <sesiune1 zi_i="16" luna_i="1" zi_s="5" luna_s="2" an_i="2017" an_s="2017"></sesiune1>
+    <vacanta zi_i="6" luna_i="2" zi_s="12" luna_s="2" an_i="2017" an_s="2017"></vacanta>
+    <sesiune2 zi_i="13" luna_i="2" zi_s="19" luna_s="2" an_i="2017" an_s="2017"></sesiune2>
+    <predare zi_i="20" luna_i="2" zi_s="14" luna_s="4" an_i="2017" an_s="2017"></predare>
+    <vacanta zi_i="17" luna_i="4" zi_s="23" luna_s="4" an_i="2017" an_s="2017"></vacanta>
+    <predare zi_i="24" luna_i="4" zi_s="4" luna_s="6" an_i="2017" an_s="2017"></predare>
+    <sesiune3 zi_i="5" luna_i="6" zi_s="25" luna_s="6" an_i="2017" an_s="2017"></sesiune3>
+    <sesiune4 zi_i="26" luna_i="6" zi_s="9" luna_s="7" an_i="2017" an_s="2017"></sesiune4>
+
+</structura_an>

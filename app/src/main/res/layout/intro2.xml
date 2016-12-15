@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+
+    <TextView
+        android:text="@string/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lbl_year"
+        android:id="@+id/lbl_username"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="20dp"
+        android:layout_alignStart="@+id/lbl_subgroup" />
+
+    <TextView
+        android:text="@string/lbl_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl_year"
+        android:textSize="18sp"
+        android:layout_above="@+id/lbl_series"
+        android:layout_alignStart="@+id/lbl_subgroup"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:text="@string/lbl_series"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl_series"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_above="@+id/lbl_group"
+        android:layout_alignStart="@+id/lbl_year"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:text="@string/lbl_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lbl_subgroup"
+        android:layout_marginBottom="20dp"
+        android:layout_alignStart="@+id/lbl_subgroup"
+        android:id="@+id/lbl_group"
+        android:textSize="18sp"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:text="@string/lbl_subgroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="10dp"
+        android:id="@+id/lbl_subgroup"
+        android:textSize="18sp"
+        android:textColor="@android:color/black" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/lbl_username"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/lbl_username"
+        android:layout_marginStart="10dp"
+        android:inputType="textCapWords"
+        android:text=""
+        android:textColor="@android:color/holo_orange_light"
+        android:id="@+id/txt_username"
+        android:background="@color/colorPrimaryDark"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:text="0"
+        android:layout_alignBaseline="@id/lbl_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl_yearvalue"
+        android:layout_toEndOf="@id/lbl_year"
+        android:layout_marginStart="10dp"
+        android:textSize="18sp"
+        tools:ignore="HardcodedText" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/skb_year"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/lbl_yearvalue"
+        android:layout_alignTop="@id/lbl_year"
+        android:layout_alignStart="@id/txt_username"
+        android:max="6"
+        android:progress="0"
+        />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignBottom="@+id/lbl_series"
+        android:layout_toEndOf="@+id/lbl_username"
+        android:id="@+id/radio_group">
+
+        <RadioButton
+            android:text="A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/opt_a"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            tools:ignore="HardcodedText" />
+
+        <RadioButton
+            android:text="B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/opt_b"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            tools:ignore="HardcodedText" />
+
+        <RadioButton
+            android:text="PI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/opt_pi"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            tools:ignore="HardcodedText" />
+    </RadioGroup>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/lbl_group"
+        android:layout_toEndOf="@id/lbl_group"
+        android:layout_alignEnd="@id/radio_group"
+        android:layout_marginEnd="60dp"
+        android:layout_alignStart="@id/txt_username"
+        android:id="@+id/spinner_group"
+        android:entries="@array/group_array"
+        android:textAlignment="viewStart"/>
+
+    <Button
+        android:text="@string/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_above="@+id/lbl_subgroup"
+        android:layout_alignEnd="@+id/skb_year"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/btn_ok2"
+        android:textColor="@android:color/holo_orange_light"
+        android:textCursorDrawable="@android:color/background_light"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="18sp"
+         />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_subgroup"
+        android:layout_below="@+id/btn_ok2"
+        android:layout_alignEnd="@id/spinner_group"
+        android:layout_alignStart="@id/spinner_group"
+        android:entries="@array/group_array"/>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/lsfetc"
+        android:id="@+id/img_ligaintro2"
+        android:contentDescription="@string/liga"
+        android:layout_alignBottom="@+id/lbl_username"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>
