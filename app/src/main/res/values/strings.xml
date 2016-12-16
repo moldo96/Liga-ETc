@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Liga ETc</string>
+    <string name="app_name" translatable="false">Liga ETc</string>
     <string name="liga" translatable="false">Liga</string>
     <string name="user">User:</string>
     <string name="btn_azi">Today</string>
@@ -15,6 +15,9 @@
     <string name="lbl_subgroup">Subgroup:</string>
     <string name="btn_options">Options</string>
     <string name="btn_maine">In 1 Day</string>
+    <string name="opt_teme">Homework</string>
+    <string name="opt_modificari">Changes</string>
+    <string name="opt_sport" translatable="false">Sport</string>
     <string-array name="group_array">
         <item>1</item>
         <item>2</item>

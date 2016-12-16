@@ -1,6 +1,5 @@
 package d.ligaetc;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.view.View;
@@ -12,10 +11,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.Locale;
+
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,18 +29,16 @@ public class TimeClass{
 
     Document xdoc;
     Calendar now= Calendar.getInstance();
-    Calendar data_i, data_s;
-    private NodeList vacanta, predare, sesiune2;
+    private NodeList perioada;
     boolean foundDate = false;
 
-    public int dayExtractor() {
-        int day = now.get(Calendar.DAY_OF_WEEK);
-        return day;
+    public String dayExtractor() {
+        String d = now.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+        return d;
     }
 
     public int hourExtractor() {
-        int hour = now.get(Calendar.HOUR_OF_DAY);
-        return hour;
+        return Calendar.HOUR_OF_DAY;
     }
 
     public int minuteExtractor() {
@@ -62,14 +59,30 @@ public class TimeClass{
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             xdoc = dBuilder.parse(is);
             xdoc.normalize();
-            data_i = new GregorianCalendar();
-            data_s = new GregorianCalendar();
-            predare = findNodes("predare");
-            vacanta = findNodes("vacanta");
-            sesiune2 = findNodes("sesiune2");
+            boolean g = false;
 
-            String g = searchDateInterval(predare);
-            return g;
+            perioada = findNodes("predare");
+            g = searchDateInterval(perioada);
+            if(g) {
+                return "It is during courses";
+            }
+            else{
+                perioada = findNodes("sesiune");
+                g = searchDateInterval(perioada);
+                if (g){
+                    return "It is during Exams";
+                }
+                else {
+                    perioada = findNodes("vacanta");
+                    g = searchDateInterval(perioada);
+                    if (g){
+                        return "It is during holiday";
+                    }
+                    else{
+                        return "This period was not found";
+                    }
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,32 +100,31 @@ public class TimeClass{
         return Integer.parseInt(element.getAttribute(s));
     }
 
-    private NodeList findNodes(String string_to_search) {
-        return xdoc.getElementsByTagName(string_to_search);
+    private NodeList findNodes(String s) {
+        return xdoc.getElementsByTagName(s);
     }
 
-    private boolean dateIntervalFound(){
-        return (data_i.before(now) && data_s.after(now));
+    private boolean dateIntervalFound(Calendar c1, Calendar c2){
+
+        return (c1.before(now) && c2.after(now));
     }
 
-    private String searchDateInterval(NodeList nList){
-        for (int  i= 0; i < predare.getLength(); i++) {
-            Node n = predare.item(i);
+    private boolean searchDateInterval(NodeList nList){
+        Calendar data_i, data_s;
+        data_i = new GregorianCalendar();
+        data_s = new GregorianCalendar();
+        for (int  i= 0; i < nList.getLength(); i++) {
+            Node n = nList.item(i);
             if (n.getNodeType() == Node.ELEMENT_NODE)
             {
                 Element e = (Element) n;
                 data_i.set(getInteger(e,"an_i"), getInteger(e,"luna_i")-1, getInteger(e,"zi_i"));
                 data_s.set(getInteger(e,"an_s"), getInteger(e,"luna_s")-1, getInteger(e,"zi_s"));
-
-                if (data_i.before(now) && data_s.after(now)) {
-                    //tv1.setText(tv1.getText() + "" + i + data_i.getTime().toString() + " " + data_s.getTime().toString() + "\n");
-                    return "yes it is "  + showDate(data_i);
+                if (dateIntervalFound(data_i, data_s)) {
+                    return true;
                 }
-                else
-                    //tv1.setText(tv1.getText() + "nu" + "\n");
-                    return "it is not in this period: " + showDate(data_i);
             }
         }
-        return "Errror";
+        return false;
     }
 }

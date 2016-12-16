@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <!-- "Mark Favorite", should appear as action button if possible -->
-    <item
-        android:id="@+id/action_favorite"
-        android:icon="@drawable/logomic"
-        android:title="@string/author"
-        />
-
-    <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/action_settings"
-        android:title="@string/btn_options"
-        />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/opt_teme"
+        android:title="@string/opt_teme"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_teme"/>
+    <item android:id="@+id/opt_modificari"
+        android:icon="@drawable/ic_modificari"
+        android:title="@string/opt_modificari"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/opt_sport"
+        android:title="@string/opt_sport"
+        android:icon="@drawable/ic_sport"
+        app:showAsAction="ifRoom"/>
 
 </menu>
