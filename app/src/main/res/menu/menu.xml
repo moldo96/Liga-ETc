@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/opt_teme"
+    <item android:id="@+id/menu_teme"
         android:title="@string/opt_teme"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_teme"/>
-    <item android:id="@+id/opt_modificari"
+    <item android:id="@+id/menu_modificari"
         android:icon="@drawable/ic_modificari"
         android:title="@string/opt_modificari"
         app:showAsAction="ifRoom"/>
-    <item android:id="@+id/opt_sport"
+    <item android:id="@+id/menu_sport"
         android:title="@string/opt_sport"
         android:icon="@drawable/ic_sport"
         app:showAsAction="ifRoom"/>

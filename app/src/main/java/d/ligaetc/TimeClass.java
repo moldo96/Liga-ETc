@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -42,16 +43,14 @@ public class TimeClass{
     }
 
     public int minuteExtractor() {
-        int minute = now.get(Calendar.MINUTE);
-        return minute;
+        return now.get(Calendar.MINUTE);
     }
 
     public int monthExtractor() {
-        int month = now.get(Calendar.MONTH);
-        return month;
+        return now.get(Calendar.MONTH);
     }
 
-    public String checkDay(Context context) {
+    public String checkDate(Context context) {
         try {
             AssetManager mgr = context.getAssets();
             InputStream is = mgr.open("structura_2016.xml");
@@ -59,36 +58,13 @@ public class TimeClass{
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             xdoc = dBuilder.parse(is);
             xdoc.normalize();
-            boolean g = false;
-
-            perioada = findNodes("predare");
-            g = searchDateInterval(perioada);
-            if(g) {
-                return "It is during courses";
-            }
-            else{
-                perioada = findNodes("sesiune");
-                g = searchDateInterval(perioada);
-                if (g){
-                    return "It is during Exams";
-                }
-                else {
-                    perioada = findNodes("vacanta");
-                    g = searchDateInterval(perioada);
-                    if (g){
-                        return "It is during holiday";
-                    }
-                    else{
-                        return "This period was not found";
-                    }
-                }
-            }
+            //return searchInDomains(createDomainsForSearch());
 
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-        return "baaa";
+
+        return searchInDomains(createDomainsForSearch());
     }
 
     private String showDate(Calendar d) {
@@ -118,13 +94,59 @@ public class TimeClass{
             if (n.getNodeType() == Node.ELEMENT_NODE)
             {
                 Element e = (Element) n;
-                data_i.set(getInteger(e,"an_i"), getInteger(e,"luna_i")-1, getInteger(e,"zi_i"));
-                data_s.set(getInteger(e,"an_s"), getInteger(e,"luna_s")-1, getInteger(e,"zi_s"));
+                data_i.set(getInteger(e,"an_i"), getInteger(e,"luna_i")-1, getInteger(e,"zi_i"), 0,0,0);
+                data_s.set(getInteger(e,"an_s"), getInteger(e,"luna_s")-1, getInteger(e,"zi_s"), 23, 59, 59);
+
                 if (dateIntervalFound(data_i, data_s)) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private ArrayList<String> createDomainsForSearch(){
+        ArrayList<String> tip = new ArrayList<String>();
+        tip.add("predare");
+        tip.add("sesiune");
+        tip.add("vacanta");
+        return tip;
+    }
+
+    private String searchInDomains(ArrayList<String> p){
+        boolean g = false;
+        for(int i=0;i<p.size();i++){
+            perioada = findNodes(p.get(i));
+            g = searchDateInterval(perioada);
+            if (g){
+                return "Found in " + p.get(i);
+            }
+        }
+        return "Did not find";
+    }
+
+    private String searchMethod2(){
+        boolean g = false;
+        perioada = findNodes("predare");
+        g = searchDateInterval(perioada);
+        if(g) {
+            return "It is during courses";
+        }
+        else{
+            perioada = findNodes("sesiune");
+            g = searchDateInterval(perioada);
+            if (g){
+                return "It is during Exams";
+            }
+            else {
+                perioada = findNodes("vacanta");
+                g = searchDateInterval(perioada);
+                if (g) {
+                    return "It is during holiday";
+                } else {
+                    return "This period was not found";
+                }
+            }
+        }
     }
 }
