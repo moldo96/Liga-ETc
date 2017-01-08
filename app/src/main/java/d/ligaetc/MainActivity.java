@@ -1,8 +1,7 @@
 package d.ligaetc;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -11,14 +10,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TabHost;
+
 import android.widget.TextView;
+import android.widget.Toast;
+
+
+
+
 
 public class MainActivity extends AppCompatActivity {
+    AlertDialog al; String a="";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +38,17 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv1 = (TextView) findViewById(R.id.textView1);
         TimeClass t = new TimeClass();
-        //tv1.setText(t.checkDay(getApplicationContext()));
-        tv1.setText(""+t.checkDate(getApplicationContext()));
+        tv1.setText(t.dayExtractor());
+        tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
 
         //TabHost tbh1 = findViewById();
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, ExitActivity.class);
+        this.startActivity(intent);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,10 +59,12 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         TextView tv1 = (TextView) findViewById(R.id.textView1);
+        a = getResources().getStringArray(R.array.changes_array)[0];
         switch (item.getItemId()) {
             case R.id.menu_modificari:
                 tv1.setText("S-a apasat modificari");
-                showNewDialogBox();
+                showDialogBox("Modificari");
+
                 return true;
 
             case R.id.menu_sport:
@@ -61,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.menu_teme:
-                tv1.setText("S-a apasat teme");
+                tv1.setText("S-a apasat adaugare/editare");
                 return true;
 
             default:
@@ -74,32 +85,28 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialogBox(String t )
     {
-        AlertDialog al = new AlertDialog.Builder(MainActivity.this).create();
-        al.setTitle(t);
-        al.setMessage("Ce tip de " + t + " doriti?");
-        al.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        al.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(t);
+        builder.setSingleChoiceItems(R.array.changes_array,0,new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){
-                dialog.dismiss();
+                if(which == 1)
+                    a = getResources().getStringArray(R.array.changes_array)[1];
             }
         });
+        builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                Toast toast = Toast.makeText(getApplicationContext(), "You clicked " + a, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                al.dismiss();
+            }
+        });
+        al = builder.create();
         al.show();
     }
 
-    private void showNewDialogBox(){
-        Dialog dialog = new Dialog(this);
-        dialog.setTitle("Modificari");
-        dialog.setContentView(R.layout.dialog1);
-        RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radio_group);
-        RadioButton rb1 = (RadioButton) dialog.findViewById(R.id.opt_permanente);
-        RadioButton rb2 = (RadioButton) dialog.findViewById(R.id.opt_temporare);
-        rg.addView(rb1);
-        rg.addView(rb2);
-        dialog.show();
-    }
 
 }

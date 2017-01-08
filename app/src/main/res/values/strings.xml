@@ -25,6 +25,11 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+    <string-array name="changes_array">
+        <item>Temporary</item>
+        <item>Permanent</item>
+    </string-array>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

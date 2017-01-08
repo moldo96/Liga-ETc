@@ -2,8 +2,6 @@ package d.ligaetc;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.view.View;
-import android.widget.TextView;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;

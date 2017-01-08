@@ -13,4 +13,9 @@
     <string name="opt_modificari">Modificări</string>
     <string name="opt_sport"></string>
     <string name="opt_teme">Teme</string>
+    <string name="cancel">Renunță</string>
+    <string-array name="changes_array">
+        <item>Temporare</item>
+        <item>Permanente</item>
+    </string-array>
 </resources>
