@@ -26,8 +26,8 @@ import static java.security.AccessController.getContext;
 
 public class TimeClass{
 
-    Document xdoc;
-    Calendar now= Calendar.getInstance();
+    private Document xdoc;
+    private Calendar now= Calendar.getInstance();
     private NodeList perioada;
     boolean foundDate = false;
 
@@ -37,11 +37,11 @@ public class TimeClass{
     }
 
     public int dayExtractor(){
-        return Calendar.DAY_OF_WEEK;
+        return now.get(Calendar.DAY_OF_WEEK);
     }
 
     public int hourExtractor() {
-        return Calendar.HOUR_OF_DAY;
+        return now.get(Calendar.HOUR_OF_DAY);
     }
 
     public int minuteExtractor() {

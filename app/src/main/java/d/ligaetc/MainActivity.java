@@ -40,8 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv1 = (TextView) findViewById(R.id.textView1);
         TimeClass t = new TimeClass();
-        tv1.setText(t.localdayExtractor());
-        tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
+        TimetableClass tc = new TimetableClass();
+        tv1.setText("");
+        //tv1.setText(tc.OpenTimetable(getApplicationContext(),t.dayExtractor()));
+        //tv1.setText(""+t.dayExtractor());
+        //tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
 
         //TabHost tbh1 = findViewById();
 
