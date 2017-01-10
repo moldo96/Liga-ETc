@@ -31,9 +31,13 @@ public class TimeClass{
     private NodeList perioada;
     boolean foundDate = false;
 
-    public String dayExtractor() {
+    public String localdayExtractor() {
         String d = now.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
         return d;
+    }
+
+    public int dayExtractor(){
+        return Calendar.DAY_OF_WEEK;
     }
 
     public int hourExtractor() {
@@ -63,6 +67,15 @@ public class TimeClass{
         }
 
         return searchInDomains(createDomainsForSearch());
+    }
+    private void CheckTime(int day, String period){
+        if(period.startsWith("predare")){
+            if(day>0&&day<6){
+            }
+            //else show weekend
+        }
+        else if(period.startsWith("sesiune")){}// sesiune
+        else if(period.startsWith("vacanta")){} //vacanta
     }
 
     private String showDate(Calendar d) {
@@ -117,7 +130,7 @@ public class TimeClass{
             perioada = findNodes(p.get(i));
             g = searchDateInterval(perioada);
             if (g){
-                return "Found in " + p.get(i);
+                return p.get(i);
             }
         }
         return "Did not find";

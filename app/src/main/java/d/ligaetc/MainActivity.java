@@ -2,6 +2,7 @@ package d.ligaetc;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -11,34 +12,35 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-
-
-
 public class MainActivity extends AppCompatActivity {
-    AlertDialog al; String a="";
-
-
+    AlertDialog alertDialog; String a="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.try1);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar.setTitleTextColor(Color.WHITE);
+        myToolbar.setTitle("Liga ETc");
+        //myToolbar.setTitleTextAppearance(getApplicationContext(),);
+
         setSupportActionBar(myToolbar);
-        ActionBar a = getSupportActionBar();
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setLogo(R.drawable.logomic);
-        getSupportActionBar().setTitle("Liga ETc");
-        //getSupportActionBar().setDisplayUseLogoEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        //actionBar.setDisplayShowHomeEnabled(true);
+        //actionBar.setLogo(R.drawable.logomic);
+        //actionBar.setTitle("Liga ETc");
+
+        //actionBar.setDisplayUseLogoEnabled(true);
 
 
         TextView tv1 = (TextView) findViewById(R.id.textView1);
         TimeClass t = new TimeClass();
-        tv1.setText(t.dayExtractor());
+        tv1.setText(t.localdayExtractor());
         tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
 
         //TabHost tbh1 = findViewById();
@@ -83,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void CreateActionBar(){
+
+    }
+
     private void showDialogBox(String t )
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -101,11 +107,11 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){
-                al.dismiss();
+                alertDialog.dismiss();
             }
         });
-        al = builder.create();
-        al.show();
+        alertDialog = builder.create();
+        alertDialog.show();
     }
 
 
