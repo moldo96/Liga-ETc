@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
     AlertDialog alertDialog; String a="";
@@ -42,9 +44,14 @@ public class MainActivity extends AppCompatActivity {
         TimeClass t = new TimeClass();
         TimetableClass tc = new TimetableClass();
         tv1.setText("");
+        ArrayList<Materie> materieArrayList = tc.OpenTimetable(getApplicationContext(),t.dayExtractor());
+        for(int i=0;i<materieArrayList.size();i++){
+            tv1.setText(tv1.getText() + materieArrayList.get(i).getNume() + " ");
+        }
+        tv1.setText(tv1.getText() + " "+t.weekExtractor());
         //tv1.setText(tc.OpenTimetable(getApplicationContext(),t.dayExtractor()));
         //tv1.setText(""+t.dayExtractor());
-        //tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
+        tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
 
         //TabHost tbh1 = findViewById();
 

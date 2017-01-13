@@ -32,7 +32,7 @@ public class TimetableClass {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             xdoc = dBuilder.parse(istream);
-            xdoc.normalize();String courses="";
+            xdoc.normalize();
             nodeofDay = xdoc.getElementsByTagName("z_" + day).item(0);
             listOfSubjects = nodeofDay.getChildNodes();
             for(int i =0; i<listOfSubjects.getLength();i++) {
