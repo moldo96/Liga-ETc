@@ -13,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,18 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv1 = (TextView) findViewById(R.id.textView1);
         TimeClass t = new TimeClass();
-        TimetableClass tc = new TimetableClass();
         tv1.setText("");
-        ArrayList<Materie> materieArrayList = tc.OpenTimetable(getApplicationContext(),t.dayExtractor());
-        for(int i=0;i<materieArrayList.size();i++){
-            tv1.setText(tv1.getText() + materieArrayList.get(i).getNume() + " ");
-        }
-        tv1.setText(tv1.getText() + " "+t.weekExtractor());
-        //tv1.setText(tc.OpenTimetable(getApplicationContext(),t.dayExtractor()));
-        //tv1.setText(""+t.dayExtractor());
         tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
-
-        //TabHost tbh1 = findViewById();
+        String[] er = {"pupp", "lfsldfs"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.singlerow_list1, er);
+        ListView listView = (ListView) findViewById(R.id.listview1);
+        listView.setAdapter(adapter);
 
     }
 
@@ -123,6 +119,4 @@ public class MainActivity extends AppCompatActivity {
         alertDialog = builder.create();
         alertDialog.show();
     }
-
-
 }

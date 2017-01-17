@@ -13,12 +13,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import static java.security.AccessController.getContext;
 
 /**
  * Created by Andrei on 14.12.2016.
@@ -29,6 +28,8 @@ public class TimeClass{
     private Document xdoc;
     private Calendar now= Calendar.getInstance();
     private NodeList perioada;
+    private Context context;
+
     //private boolean foundDate = false;
 
     public String localdayExtractor() {
@@ -64,28 +65,35 @@ public class TimeClass{
     public String checkDate(Context context) {
         try {
             AssetManager mgr = context.getAssets();
+            this.context = context;
             InputStream is = mgr.open("structura_2016.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             xdoc = dBuilder.parse(is);
             xdoc.normalize();
-            //return searchInDomains(createDomainsForSearch());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return searchInDomains(createDomainsForSearch());
+        String foundPeriod = searchInDomains(createDomainsForSearch());
+        if (foundPeriod != "Did not find the period")
+            return checkTime(dayExtractor(),foundPeriod);
+        return foundPeriod;
     }
 
-    private void CheckTime(int day, String period){
+    private String checkTime(int day, String period){
+        String dl = "";
         if(period.startsWith("predare")){
             if(day>0&&day<6){
+                return getTimetableofDay(day);
             }
+            return "sdfsdf";
             //else show weekend
         }
-        else if(period.startsWith("sesiune")){}// sesiune
-        else if(period.startsWith("vacanta")){} //vacanta
+        else if(period.startsWith("sesiune")){return getTimetableofDay(day);}// sesiune
+        else if(period.startsWith("vacanta")){return "fsdfs";} //vacanta
+        return "fsd";
     }
 
     private String showDate(Calendar d) {
@@ -140,10 +148,10 @@ public class TimeClass{
             perioada = findNodes(p.get(i));
             g = searchDateInterval(perioada);
             if (g.startsWith("semestrul")){
-                return p.get(i) + g;
+                return p.get(i);
             }
         }
-        return "Did not find";
+        return "Did not find the period";
     }
 
     private String searchMethod2(){
@@ -173,5 +181,15 @@ public class TimeClass{
 
     public String findSemester(Node node) {
         return node.getParentNode().getNodeName();
+    }
+
+    private String getTimetableofDay(int day){
+        String nameOfSubjects = "";
+        TimetableClass tc = new TimetableClass();
+        ArrayList<Materie> materieArrayList = tc.OpenTimetable(context, day);
+        for(int i=0;i<materieArrayList.size();i++){
+            nameOfSubjects +=  materieArrayList.get(i).getNume() + " ";
+        }
+        return nameOfSubjects;
     }
 }

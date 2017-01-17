@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="@color/colorAccent"
+    android:textColor="@color/colorWhite"
+    android:textSize="20dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/colorWhite"
-        android:id="@+id/primul"
-        android:layout_marginStart="20dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/colorWhite"
-        android:id="@+id/aldoilea"
-        android:layout_marginStart="40dp" />
-
-
-</LinearLayout>
+</TextView>
