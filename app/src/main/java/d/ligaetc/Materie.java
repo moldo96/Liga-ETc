@@ -31,4 +31,8 @@ class Materie {
         return prof;
     }
 
+    public String getOra_i() { return ora_i;}
+
+    public String getOra_f() { return ora_f;}
+
 }

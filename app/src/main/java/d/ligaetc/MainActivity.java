@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     AlertDialog alertDialog; String a="";
+    ArrayList<Materie> mmm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +46,42 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv1 = (TextView) findViewById(R.id.textView1);
         TimeClass t = new TimeClass();
+        TimetableClass tc = new TimetableClass();
         tv1.setText("");
         tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
-        String[] er = {"pupp", "lfsldfs"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.singlerow_list1, er);
+        mmm = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
+        ArrayAdapter<Materie> adapter = new MyListAdapter();
         ListView listView = (ListView) findViewById(R.id.listview1);
         listView.setAdapter(adapter);
 
+    }
+
+    private class MyListAdapter extends ArrayAdapter<Materie>{
+        public MyListAdapter(){
+            super(MainActivity.this,R.layout.singlerow_list1, mmm);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent){
+            View itemView = convertView;
+            if(itemView == null){
+                itemView = getLayoutInflater().inflate(R.layout.singlerow_list1, parent, false);
+            }
+            //Find materie
+            Materie currentMaterie =mmm.get(position);
+
+            // Fill the view
+            TextView tv = (TextView)itemView.findViewById(R.id.txt_ora);
+            tv.setText(currentMaterie.getOra_i());
+            TextView textView1 = (TextView)itemView.findViewById(R.id.txt_numematerie);
+            textView1.setText(currentMaterie.getNume());
+            TextView textView3 = (TextView)itemView.findViewById(R.id.txt_prof);
+            textView3.setText(currentMaterie.getProf());
+            //ImageView imageView = (ImageView)itemView.findViewById(R.id.imageView0);
+            //imageView.setImageResource(R.drawable.stoiciu);
+
+            return itemView;
+        }
     }
 
     @Override
