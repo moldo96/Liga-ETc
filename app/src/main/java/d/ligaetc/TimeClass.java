@@ -91,9 +91,9 @@ public class TimeClass{
             return "sdfsdf";
             //else show weekend
         }
-        else if(period.startsWith("sesiune")){return getTimetableofDay(day);}// sesiune
-        else if(period.startsWith("vacanta")){return "fsdfs";} //vacanta
-        return "fsd";
+        else if(period.startsWith("sesiune")){return "Sesiune ";}// sesiune
+        else if(period.startsWith("vacanta")){return "Vacanta";} //vacanta
+        return "Did not find";
     }
 
     private String showDate(Calendar d) {

@@ -8,37 +8,70 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:id="@+id/txt_prof"
-        android:layout_alignBaseline="@+id/txt_numematerie"
-        android:layout_alignBottom="@+id/txt_numematerie"
-        android:layout_toEndOf="@+id/txt_numematerie" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:layout_marginBottom="55dp"
-        android:id="@+id/txt_numematerie"
-        android:layout_alignBottom="@+id/imageView0"
-        android:layout_toEndOf="@+id/imageView0" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txt_numematerie"
-        android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
-        android:id="@+id/txt_ora" />
+        android:id="@+id/txt_ora"
+        android:textSize="18sp"
+        android:textColor="@color/colorBlack"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/logomic"
-        android:id="@+id/imageView0"
+        android:id="@+id/img_prof"
+        android:layout_toEndOf="@+id/txt_ora"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_numematerie"
+        android:layout_toEndOf="@+id/img_prof"
         android:layout_marginStart="20dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorBlack"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/txt_ora" />
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_prof"
+        android:textSize="18sp"
+        android:textColor="@color/colorBlack"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_tip"
+        android:layout_toEndOf="@id/img_prof"
+        android:layout_marginStart="20dp"
+        android:layout_alignTop="@id/txt_prof"
+        android:layout_marginTop="50dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorBlack"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_alignTop="@id/txt_numematerie"
+        android:layout_marginTop="50dp"
+        android:id="@+id/txt_sala"
+        android:textSize="18sp"
+        android:textColor="@color/colorBlack"/>
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package d.ligaetc;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(myToolbar);
         ActionBar actionBar = getSupportActionBar();
-        //actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         //actionBar.setLogo(R.drawable.logomic);
         //actionBar.setTitle("Liga ETc");
 
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
         mmm = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
         ArrayAdapter<Materie> adapter = new MyListAdapter();
-        ListView listView = (ListView) findViewById(R.id.listview1);
+        ListView listView = (ListView) findViewById(R.id.list_materii);
         listView.setAdapter(adapter);
 
     }
@@ -77,11 +79,29 @@ public class MainActivity extends AppCompatActivity {
             textView1.setText(currentMaterie.getNume());
             TextView textView3 = (TextView)itemView.findViewById(R.id.txt_prof);
             textView3.setText(currentMaterie.getProf());
+            ImageView imgview = (ImageView)itemView.findViewById(R.id.img_prof);
+            TextView t3 = (TextView)itemView.findViewById(R.id.txt_tip);
+            t3.setText(currentMaterie.getTip());
+            TextView t4 = (TextView)itemView.findViewById(R.id.txt_sala);
+            t4.setText("A106");
+            //imgview.setImageDrawable(getResources().getDrawable(R.drawable.stoiciu));
+            //Context context = getApplicationContext();
+            //String estring = currentMaterie.getProf();
+            ///estring = estring.substring(2);
+            //estring = estring.toLowerCase();
+            //textView1.setText(estring);
+            //imgview.setImageResource(getPictureID(estring,context));
+                    //getResources().getDrawable(getPictureID(estring,context)));
+
             //ImageView imageView = (ImageView)itemView.findViewById(R.id.imageView0);
-            //imageView.setImageResource(R.drawable.stoiciu);
+            //imgview.setImageResource(getPictureID(estring,context));
 
             return itemView;
         }
+    }
+
+    private int getPictureID(String estring, Context context){
+        return context.getResources().getIdentifier(estring, "drawable",context.getApplicationInfo().packageName);
     }
 
     @Override
@@ -120,10 +140,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
-    }
-
-    private void CreateActionBar(){
-
     }
 
     private void showDialogBox(String t )
