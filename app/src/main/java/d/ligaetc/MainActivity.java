@@ -22,11 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class MainActivity extends AppCompatActivity {
     AlertDialog alertDialog; String a="";
-    ArrayList<Materie> mmm;
+    ArrayList<Materie> subjectsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
         TimetableClass tc = new TimetableClass();
         tv1.setText("");
         tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
-        mmm = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
+        tv1.setText(t.localdayFormat(Calendar.getInstance()));
+        tv1.setText("" + t.getWeekOfFoundPeriod());
+        subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
         ArrayAdapter<Materie> adapter = new MyListAdapter();
         ListView listView = (ListView) findViewById(R.id.list_materii);
         listView.setAdapter(adapter);
@@ -59,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class MyListAdapter extends ArrayAdapter<Materie>{
-        public MyListAdapter(){
-            super(MainActivity.this,R.layout.singlerow_list1, mmm);
+        private MyListAdapter(){
+            super(MainActivity.this,R.layout.singlerow_list1, subjectsList);
         }
 
         @Override
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 itemView = getLayoutInflater().inflate(R.layout.singlerow_list1, parent, false);
             }
             //Find materie
-            Materie currentMaterie =mmm.get(position);
+            Materie currentMaterie = subjectsList.get(position);
 
             // Fill the view
             TextView tv = (TextView)itemView.findViewById(R.id.txt_ora);

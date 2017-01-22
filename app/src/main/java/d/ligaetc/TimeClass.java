@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,11 +28,12 @@ public class TimeClass{
     private Calendar now= Calendar.getInstance();
     private NodeList perioada;
     private Context context;
+    private int weekOfFoundPeriod;
 
     //private boolean foundDate = false;
 
-    public String localdayExtractor() {
-        String d = now.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+    public String localdayFormat(Calendar calendar) {
+        String d = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
         return d;
     }
 
@@ -57,9 +57,21 @@ public class TimeClass{
         return now.get(Calendar.WEEK_OF_YEAR);
     }
 
-    //TODO create this function
-    public int weekDifferenceFromFirst() {
-        return 2;
+    public int getWeekOfFoundPeriod()
+    {
+        return weekOfFoundPeriod;
+    }
+
+    private int getWeekDifferenceFromFirst(Calendar firstDay, Calendar todayDate) {
+        int firstDayofSemester = firstDay.get(Calendar.DAY_OF_YEAR);
+        int today = todayDate.get(Calendar.DAY_OF_YEAR);
+        if(today > firstDayofSemester){
+            return (today - firstDayofSemester) / 7;
+        }
+        else if(firstDayofSemester > today){
+            return (365 - firstDayofSemester + today) / 7;
+        }
+        return 0;
     }
 
     public String checkDate(Context context) {
@@ -88,7 +100,7 @@ public class TimeClass{
             if(day>0&&day<6){
                 return getTimetableofDay(day);
             }
-            return "sdfsdf";
+            return "Weekend";
             //else show weekend
         }
         else if(period.startsWith("sesiune")){return "Sesiune ";}// sesiune
@@ -127,6 +139,8 @@ public class TimeClass{
                 data_s.set(getInteger(e,"an_s"), getInteger(e,"luna_s")-1, getInteger(e,"zi_s"), 23, 59, 59);
 
                 if (dateIntervalFound(data_i, data_s)) {
+                    weekOfFoundPeriod = Integer.parseInt(e.getAttribute("saptamana"));
+                    weekOfFoundPeriod += getWeekDifferenceFromFirst(data_i,Calendar.getInstance());
                     return findSemester(n);
                 }
             }
