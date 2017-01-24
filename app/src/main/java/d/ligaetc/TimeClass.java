@@ -29,6 +29,7 @@ public class TimeClass{
     private NodeList perioada;
     private Context context;
     private int weekOfFoundPeriod;
+    private String semester;
 
     //private boolean foundDate = false;
 
@@ -101,7 +102,6 @@ public class TimeClass{
                 return getTimetableofDay(day);
             }
             return "Weekend";
-            //else show weekend
         }
         else if(period.startsWith("sesiune")){return "Sesiune ";}// sesiune
         else if(period.startsWith("vacanta")){return "Vacanta";} //vacanta
@@ -141,7 +141,7 @@ public class TimeClass{
                 if (dateIntervalFound(data_i, data_s)) {
                     weekOfFoundPeriod = Integer.parseInt(e.getAttribute("saptamana"));
                     weekOfFoundPeriod += getWeekDifferenceFromFirst(data_i,Calendar.getInstance());
-                    return findSemester(n);
+                    return semester = findSemester(n);
                 }
             }
         }

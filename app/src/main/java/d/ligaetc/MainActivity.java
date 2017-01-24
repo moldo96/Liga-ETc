@@ -16,8 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,32 +36,49 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.try1);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        myToolbar.setTitleTextColor(Color.WHITE);
-        myToolbar.setTitle("Liga ETc");
+        setContentView(R.layout.intro);
+        Button OKbtn_intro = (Button) findViewById(R.id.btn_ok);
+        OKbtn_intro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radiogroup_student);
+                int radioButtonID = radioGroup.getCheckedRadioButtonId();
+                View radioButtonChecked = radioGroup.findViewById(radioButtonID);
+                int index = radioGroup.indexOfChild(radioButtonChecked);
+                RadioButton r = (RadioButton) radioGroup.getChildAt(index);
+                String text = r.getText().toString();
+                if(text.startsWith("Student")) {
+                    Intent intent = new Intent(view.getContext(), ProfileActivity.class);
+                    intent.putExtra("KEY", text);
+                    startActivity(intent);
+                }
+            }
+        });
+        //Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        //myToolbar.setTitleTextColor(Color.WHITE);
+        //myToolbar.setTitle("Liga ETc");
         //myToolbar.setTitleTextAppearance(getApplicationContext(),);
 
-        setSupportActionBar(myToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
+        //setSupportActionBar(myToolbar);
+        //ActionBar actionBar = getSupportActionBar();
+        //actionBar.setDisplayShowHomeEnabled(true);
         //actionBar.setLogo(R.drawable.logomic);
         //actionBar.setTitle("Liga ETc");
 
         //actionBar.setDisplayUseLogoEnabled(true);
 
 
-        TextView tv1 = (TextView) findViewById(R.id.textView1);
-        TimeClass t = new TimeClass();
-        TimetableClass tc = new TimetableClass();
-        tv1.setText("");
-        tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
-        tv1.setText(t.localdayFormat(Calendar.getInstance()));
-        tv1.setText("" + t.getWeekOfFoundPeriod());
-        subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
-        ArrayAdapter<Materie> adapter = new MyListAdapter();
-        ListView listView = (ListView) findViewById(R.id.list_materii);
-        listView.setAdapter(adapter);
+        //TextView tv1 = (TextView) findViewById(R.id.textView1);
+        //TimeClass t = new TimeClass();
+        //TimetableClass tc = new TimetableClass();
+       // tv1.setText("");
+        //tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
+        //tv1.setText(t.localdayFormat(Calendar.getInstance()));
+       // tv1.setText("" + t.getWeekOfFoundPeriod());
+        //subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
+        //ArrayAdapter<Materie> adapter = new MyListAdapter();
+        //ListView listView = (ListView) findViewById(R.id.list_materii);
+        //listView.setAdapter(adapter);
 
     }
 

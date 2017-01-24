@@ -49,9 +49,13 @@ public class TimetableClass {
     }
 
     private Materie initializeSubject(Element element){
+        String nume = element.getAttribute("nume");
+        String tip = element.getAttribute("tip");
+        String prof = element.getAttribute("prof");
         String ora_i = element.getAttribute("ora_i");
         String ora_f = element.getAttribute("ora_f");
-        Materie subject = new Materie(element.getAttribute("nume"), element.getAttribute("tip"), element.getAttribute("prof"), ora_i,ora_f);
+        String sala = element.getAttribute("sala");
+        Materie subject = new Materie(nume,tip,prof, ora_i,ora_f, sala);
         return subject;
     }
 

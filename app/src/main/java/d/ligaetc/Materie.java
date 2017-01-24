@@ -10,16 +10,18 @@ class Materie {
     private String prof;
     private String ora_i;
     private String ora_f;
+    private  String sala;
 
-    public Materie(String nume, String tip, String prof, String ora_i, String ora_f){
+    public Materie(String nume, String tip, String prof, String ora_i, String ora_f, String sala){
         this.nume = nume;
         this.tip = tip;
         this.prof = prof;
         this.ora_i = ora_i;
         this.ora_f = ora_f;
+        this.sala = sala;
     }
 
-    public String getNume(){
+     public String getNume(){
         return nume;
     }
 
@@ -34,5 +36,7 @@ class Materie {
     public String getOra_i() { return ora_i;}
 
     public String getOra_f() { return ora_f;}
+
+    public String getSala() {return sala;}
 
 }
