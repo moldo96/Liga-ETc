@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 String text = r.getText().toString();
                 if(text.startsWith("Student")) {
                     Intent intent = new Intent(view.getContext(), ProfileActivity.class);
-                    intent.putExtra("KEY", text);
                     startActivity(intent);
                 }
             }

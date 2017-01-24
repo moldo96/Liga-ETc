@@ -7,7 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Xml;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,15 +26,23 @@ import java.io.StringWriter;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    EditText editText;
+    SeekBar seekBar;
+    Spinner spinner1;
+    Spinner spinner2;
+    RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro2);
-        final String haha="fssdfs";
         Intent intent = getIntent();
+        editText = (EditText)findViewById(R.id.txt_username);
         final TextView year = (TextView)findViewById(R.id.lbl_yearvalue);
-        SeekBar seekBar = (SeekBar) findViewById(R.id.skb_year);
+        seekBar = (SeekBar) findViewById(R.id.skb_year);
+        spinner1 = (Spinner) findViewById(R.id.spinner_group);
+        spinner2 = (Spinner) findViewById(R.id.spinner_subgroup);
+        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -47,28 +59,12 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
         Button OKbtn_intro2 = (Button) findViewById(R.id.btn_ok2);
         OKbtn_intro2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View view){
-                String FILENAME = "PROFILE.xml";
-                try {
-                    FileOutputStream fileOutputStream = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-                    XmlSerializer xmlSerializer = Xml.newSerializer();
-                    StringWriter writer = new StringWriter();
-                    xmlSerializer.setOutput(writer);
-                    xmlSerializer.startDocument("UTF-8", true);
-                    xmlSerializer.startTag(null, "profile");
-                    xmlSerializer.attribute("","name",haha);
-                    xmlSerializer.endTag(null,"profile");
-                    xmlSerializer.endDocument();
-                    xmlSerializer.flush();
-                    fileOutputStream.write(writer.toString().getBytes());
-
-                    fileOutputStream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onClick (View view) {
+                createProfileXml();
             }
         });
     }
@@ -79,10 +75,37 @@ public class ProfileActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-    {
-        Toast toast = Toast.makeText(getApplicationContext(),""+progress,Toast.LENGTH_SHORT);
-        toast.show();
+    private void createProfileXml(){
+        try {
+            FileOutputStream fileOutputStream = openFileOutput("PROFIL.xml", Context.MODE_PRIVATE);
+            XmlSerializer xmlSerializer = Xml.newSerializer();
+            StringWriter writer = new StringWriter();
+            xmlSerializer.setOutput(writer);
+            xmlSerializer.startDocument("UTF-8", true);
+            xmlSerializer.startTag(null, "profil");
+            xmlSerializer.attribute("", "nume",editText.getText().toString());
+            xmlSerializer.attribute("", "an","" + seekBar.getProgress());
+            xmlSerializer.attribute("", "G", spinner1.getSelectedItem().toString());
+            xmlSerializer.attribute("", "g", spinner2.getSelectedItem().toString());
+            xmlSerializer.attribute("", "serie", ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString());
+            xmlSerializer.endTag(null,"profil");
+            xmlSerializer.endDocument();
+            xmlSerializer.flush();
+            fileOutputStream.write(writer.toString().getBytes());
+            fileOutputStream.close();
+            Intent intent1 = new Intent(getApplicationContext(),Try.class);
+            startActivity(intent1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createAttributeinXml(XmlSerializer xmlSerializer, String nameOfAttribute, String value){
+        try {
+            xmlSerializer.attribute("", nameOfAttribute, value);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

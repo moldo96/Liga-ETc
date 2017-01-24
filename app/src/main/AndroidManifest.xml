@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".ProfileActivity">
         </activity>
+        <activity android:name=".Try">
+        </activity>
     </application>
 
 </manifest>
