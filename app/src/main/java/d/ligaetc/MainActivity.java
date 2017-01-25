@@ -53,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        //Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        //myToolbar.setTitleTextColor(Color.WHITE);
-        //myToolbar.setTitle("Liga ETc");
+
         //myToolbar.setTitleTextAppearance(getApplicationContext(),);
 
         //setSupportActionBar(myToolbar);

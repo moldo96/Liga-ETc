@@ -26,24 +26,16 @@ import java.io.StringWriter;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    EditText editText;
-    SeekBar seekBar;
-    Spinner spinner1;
-    Spinner spinner2;
-    RadioGroup radioGroup;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro2);
         Intent intent = getIntent();
-        editText = (EditText)findViewById(R.id.txt_username);
         final TextView year = (TextView)findViewById(R.id.lbl_yearvalue);
-        seekBar = (SeekBar) findViewById(R.id.skb_year);
-        spinner1 = (Spinner) findViewById(R.id.spinner_group);
-        spinner2 = (Spinner) findViewById(R.id.spinner_subgroup);
-        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
+        final SeekBar seekBar = (SeekBar) findViewById(R.id.skb_year);
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 year.setText(""+i);
@@ -64,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         OKbtn_intro2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
-                createProfileXml();
+                createProfileXml(seekBar);
             }
         });
     }
@@ -75,7 +67,11 @@ public class ProfileActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    private void createProfileXml(){
+    private void createProfileXml(SeekBar seekBar){
+        EditText editText = (EditText)findViewById(R.id.txt_username);
+        Spinner spinner1 = (Spinner) findViewById(R.id.spinner_group);
+        Spinner spinner2 = (Spinner) findViewById(R.id.spinner_subgroup);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         try {
             FileOutputStream fileOutputStream = openFileOutput("PROFIL.xml", Context.MODE_PRIVATE);
             XmlSerializer xmlSerializer = Xml.newSerializer();
@@ -96,14 +92,6 @@ public class ProfileActivity extends AppCompatActivity {
             Intent intent1 = new Intent(getApplicationContext(),Try.class);
             startActivity(intent1);
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void createAttributeinXml(XmlSerializer xmlSerializer, String nameOfAttribute, String value){
-        try {
-            xmlSerializer.attribute("", nameOfAttribute, value);
-        }catch (Exception e){
             e.printStackTrace();
         }
     }
