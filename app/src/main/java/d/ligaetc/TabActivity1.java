@@ -14,4 +14,5 @@ public class TabActivity1 extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_activity1);
     }
+
 }

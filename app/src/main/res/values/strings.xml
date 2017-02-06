@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">Liga ETc</string>
     <string name="liga" translatable="false">Liga</string>
     <string name="user">User:</string>
-    <string name="btn_azi">Today</string>
     <string name="guest">Guest</string>
     <string name="radiobutton" translatable="false">RadioButton</string>
     <string name="ok" translatable="false">OK</string>
@@ -14,7 +13,6 @@
     <string name="lbl_group">Group:</string>
     <string name="lbl_subgroup">Subgroup:</string>
     <string name="btn_options">Options</string>
-    <string name="btn_maine">In 1 Day</string>
     <string name="opt_teme">Homework</string>
     <string name="opt_modificari">Changes</string>
     <string name="opt_sport" translatable="false">Sport</string>
@@ -30,6 +28,9 @@
         <item>Permanent</item>
     </string-array>
     <string name="cancel">Cancel</string>
+    <string name="azi">Today</string>
+    <string name="maine">Tomorrow</string>
+    <string name="poimaine">In 2 Days</string>
 
 
 </resources>

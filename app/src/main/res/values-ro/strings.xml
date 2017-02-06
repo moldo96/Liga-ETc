@@ -3,8 +3,6 @@
     <string name="author">Autor: Andrei Moldovan</string>
     <string name="guest">Vizitator</string>
     <string name="user">Utilizator:</string>
-    <string name="btn_azi">Azi</string>
-    <string name="btn_maine">Mâine</string>
     <string name="lbl_subgroup">Subgrupă:</string>
     <string name="lbl_year">An:</string>
     <string name="lbl_group">Grupă:</string>
@@ -18,4 +16,7 @@
         <item>Temporare</item>
         <item>Permanente</item>
     </string-array>
+    <string name="poimaine">Poimâine</string>
+    <string name="azi">Azi</string>
+    <string name="maine">Mâine</string>
 </resources>
