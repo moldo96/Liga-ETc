@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -33,26 +35,20 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog alertDialog; String a="";
     ArrayList<Materie> subjectsList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.intro);
-        Button OKbtn_intro = (Button) findViewById(R.id.btn_ok);
-        OKbtn_intro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radiogroup_student);
-                int radioButtonID = radioGroup.getCheckedRadioButtonId();
-                View radioButtonChecked = radioGroup.findViewById(radioButtonID);
-                int index = radioGroup.indexOfChild(radioButtonChecked);
-                RadioButton r = (RadioButton) radioGroup.getChildAt(index);
-                String text = r.getText().toString();
-                if(text.startsWith("Student")) {
-                    Intent intent = new Intent(view.getContext(), ProfileActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
+        File file = new File(getApplicationContext().getFilesDir(),"PROFIL.xml");
+        if(!file.exists()){
+            Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
+            startActivity(intent);}
+        else {
+            Intent intent = new Intent(getApplicationContext(), TemporaryJob.class);
+            startActivity(intent);
+        }
+
+
 
         //myToolbar.setTitleTextAppearance(getApplicationContext(),);
 

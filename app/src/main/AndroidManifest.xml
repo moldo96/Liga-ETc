@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".Try">
         </activity>
+        <activity android:name=".TabActivity1"></activity>
+        <activity android:name=".TemporaryJob"></activity>
     </application>
 
 </manifest>
