@@ -127,37 +127,6 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        TextView tv1 = (TextView) findViewById(R.id.textView1);
-        a = getResources().getStringArray(R.array.changes_array)[0];
-        switch (item.getItemId()) {
-            case R.id.menu_modificari:
-                tv1.setText("S-a apasat modificari");
-                showDialogBox("Modificari");
-
-                return true;
-
-            case R.id.menu_sport:
-                tv1.setText("S-a apasat sport");
-                return true;
-
-            case R.id.menu_teme:
-                tv1.setText("S-a apasat adaugare/editare");
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
 
     private void showDialogBox(String t )
     {

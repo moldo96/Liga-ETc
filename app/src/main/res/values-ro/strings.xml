@@ -9,7 +9,6 @@
     <string name="lbl_series">Serie:</string>
     <string name="btn_options">Opțiuni</string>
     <string name="opt_modificari">Modificări</string>
-    <string name="opt_sport"></string>
     <string name="opt_teme">Teme</string>
     <string name="cancel">Renunță</string>
     <string-array name="changes_array">
