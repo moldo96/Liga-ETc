@@ -11,6 +11,8 @@ class Materie {
     private String ora_i;
     private String ora_f;
     private  String sala;
+    private String G;
+    private String g;
 
     public Materie(String nume, String tip, String prof, String ora_i, String ora_f, String sala){
         this.nume = nume;
@@ -39,4 +41,11 @@ class Materie {
 
     public String getSala() {return sala;}
 
+    public String getG() {
+        return G;
+    }
+
+    public String getg() {
+        return g;
+    }
 }

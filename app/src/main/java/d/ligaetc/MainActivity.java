@@ -39,14 +39,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        File file = new File(getApplicationContext().getFilesDir(),"PROFIL.xml");
-        if(!file.exists()){
-            Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
-            startActivity(intent);}
-        else {
-            Intent intent = new Intent(getApplicationContext(), TemporaryJob.class);
-            startActivity(intent);
-        }
+        setContentView(R.layout.try1);
+        //File file = new File(getApplicationContext().getFilesDir(),"PROFIL.xml");
+        //if(!file.exists()){
+            //Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
+           // startActivity(intent);}
+        //else {
+            //Intent intent = new Intent(getApplicationContext(), TemporaryJob.class);
+            //startActivity(intent);
+        //}
 
 
 
@@ -57,21 +58,20 @@ public class MainActivity extends AppCompatActivity {
         //actionBar.setDisplayShowHomeEnabled(true);
         //actionBar.setLogo(R.drawable.logomic);
         //actionBar.setTitle("Liga ETc");
-
         //actionBar.setDisplayUseLogoEnabled(true);
 
 
-        //TextView tv1 = (TextView) findViewById(R.id.textView1);
-        //TimeClass t = new TimeClass();
-        //TimetableClass tc = new TimetableClass();
-       // tv1.setText("");
-        //tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
-        //tv1.setText(t.localdayFormat(Calendar.getInstance()));
-       // tv1.setText("" + t.getWeekOfFoundPeriod());
-        //subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
-        //ArrayAdapter<Materie> adapter = new MyListAdapter();
-        //ListView listView = (ListView) findViewById(R.id.list_materii);
-        //listView.setAdapter(adapter);
+        TextView tv1 = (TextView) findViewById(R.id.textView1);
+        TimeClass t = new TimeClass();
+        TimetableClass tc = new TimetableClass();
+       tv1.setText("");
+        tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
+        tv1.setText(t.localdayFormat(Calendar.getInstance()));
+        tv1.setText("" + t.getWeekOfFoundPeriod());
+        subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
+        ArrayAdapter<Materie> adapter = new MyListAdapter();
+        ListView listView = (ListView) findViewById(R.id.list_materii);
+        listView.setAdapter(adapter);
 
     }
 
@@ -88,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
             }
             //Find materie
             Materie currentMaterie = subjectsList.get(position);
-
+            TimeClass t = new TimeClass();
             // Fill the view
             TextView tv = (TextView)itemView.findViewById(R.id.txt_ora);
-            tv.setText(currentMaterie.getOra_i());
+            tv.setText(t.getHourDifference(currentMaterie.getOra_i(), currentMaterie.getOra_f()));
             TextView textView1 = (TextView)itemView.findViewById(R.id.txt_numematerie);
             textView1.setText(currentMaterie.getNume());
             TextView textView3 = (TextView)itemView.findViewById(R.id.txt_prof);
@@ -101,14 +101,14 @@ public class MainActivity extends AppCompatActivity {
             t3.setText(currentMaterie.getTip());
             TextView t4 = (TextView)itemView.findViewById(R.id.txt_sala);
             t4.setText("A106");
-            //imgview.setImageDrawable(getResources().getDrawable(R.drawable.stoiciu));
-            //Context context = getApplicationContext();
-            //String estring = currentMaterie.getProf();
-            ///estring = estring.substring(2);
-            //estring = estring.toLowerCase();
-            //textView1.setText(estring);
-            //imgview.setImageResource(getPictureID(estring,context));
-                    //getResources().getDrawable(getPictureID(estring,context)));
+            //imgview.setImageDrawable(getResources().getDrawable(R.drawable.blaj));
+            Context context = getApplicationContext();
+            String estring = "d.stoiciu";
+            estring = estring.substring(2);
+            estring = estring.toLowerCase();
+            textView1.setText(estring);
+            imgview.setImageResource(getPictureID(estring,context));
+                    getResources().getDrawable(getPictureID(estring,context));
 
             //ImageView imageView = (ImageView)itemView.findViewById(R.id.imageView0);
             //imgview.setImageResource(getPictureID(estring,context));

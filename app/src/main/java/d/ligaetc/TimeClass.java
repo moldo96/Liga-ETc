@@ -63,6 +63,32 @@ public class TimeClass{
         return weekOfFoundPeriod;
     }
 
+    public String getHourDifference(String timeToStart, String timeToEnd){
+        int actualHour = hourExtractor();
+        int actualMinute = minuteExtractor();
+        String[] fractions1=timeToStart.split(":");
+        String[] fractions2=timeToStart.split(":");
+        int hourToEnd = Integer.parseInt(fractions2[0]);
+        int minuteToEnd = Integer.parseInt(fractions2[1]);
+        int hourToStart = Integer.parseInt(fractions1[0]);
+        int minuteToStart = Integer.parseInt(fractions1[1]);
+        int hourDifference = hourToStart - actualHour - 1;
+        int minutesDifference = 59 - actualMinute;
+        if(hourDifference < 0 ){
+            if(getIfDuringCourse(actualHour, actualMinute, hourToEnd, minuteToEnd ))
+                return "ACUM";
+            else return "A TRECUT";}
+        return hourDifference + ":" + minutesDifference;
+    }
+
+    private boolean getIfDuringCourse(int actualHour, int actualMinute, int finalHour, int finalMinute){
+        int hourDifference = finalHour - actualHour;
+        int minuteDifference = hourDifference * 60 - actualMinute + finalMinute;
+        if(minuteDifference > 0)
+            return true;
+        return false;
+    }
+
     private int getWeekDifferenceFromFirst(Calendar firstDay, Calendar todayDate) {
         int firstDayofSemester = firstDay.get(Calendar.DAY_OF_YEAR);
         int today = todayDate.get(Calendar.DAY_OF_YEAR);
