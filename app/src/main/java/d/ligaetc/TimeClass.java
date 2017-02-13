@@ -25,13 +25,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class TimeClass{
 
     private Document xdoc;
-    private Calendar now= Calendar.getInstance();
-    private NodeList perioada;
+    private Calendar now = Calendar.getInstance();
     private Context context;
-    private int weekOfFoundPeriod;
+    private int weekOfFoundPeriod = 1;
+    private String perioada;
     private String semester;
 
-    //private boolean foundDate = false;
+    private void setNow(int additionalDays){
+        now.add(Calendar.DATE,additionalDays);
+    }
 
     public String localdayFormat(Calendar calendar) {
         String d = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
@@ -58,9 +60,9 @@ public class TimeClass{
         return now.get(Calendar.WEEK_OF_YEAR);
     }
 
-    public int getWeekOfFoundPeriod()
+    public String getFoundPeriod()
     {
-        return weekOfFoundPeriod;
+        return perioada + ", saptamana " + weekOfFoundPeriod;
     }
 
     public String getHourDifference(String timeToStart, String timeToEnd){
@@ -101,7 +103,7 @@ public class TimeClass{
         return 0;
     }
 
-    public String checkDate(Context context) {
+    public String checkDate(Context context, int additionalDays) {
         try {
             AssetManager mgr = context.getAssets();
             this.context = context;
@@ -114,24 +116,24 @@ public class TimeClass{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        setNow(additionalDays);
         String foundPeriod = searchInDomains(createDomainsForSearch());
         if (foundPeriod != "Did not find the period")
-            return checkTime(dayExtractor(),foundPeriod);
-        return foundPeriod;
+            return checkTime(foundPeriod);
+        return "error in foudnPeriod";
     }
 
-    private String checkTime(int day, String period){
-        String dl = "";
+    private String checkTime(String period){
+        int day = dayExtractor();
         if(period.startsWith("predare")){
             if(day>0&&day<6){
-                return getTimetableofDay(day);
+                return "TimeTable of Day"+ day;
             }
-            return "Weekend";
+            return "Weekend"+ day;
         }
-        else if(period.startsWith("sesiune")){return "Sesiune ";}// sesiune
-        else if(period.startsWith("vacanta")){return "Vacanta";} //vacanta
-        return "Did not find";
+        else if(period.startsWith("sesiune")){return "Sesiune...ooooof "+ day;}// sesiune
+        else if(period.startsWith("vacanta")){return "Vacanta WOOOOO - HOOOOOO"+ day;} //vacanta
+        return "Did not find in checktime function";
     }
 
     private String showDate(Calendar d) {
@@ -156,6 +158,7 @@ public class TimeClass{
         Calendar data_i, data_s;
         data_i = new GregorianCalendar();
         data_s = new GregorianCalendar();
+        String de_iesit="";
         for (int  i= 0; i < nList.getLength(); i++) {
             Node n = nList.item(i);
             if (n.getNodeType() == Node.ELEMENT_NODE)
@@ -165,13 +168,18 @@ public class TimeClass{
                 data_s.set(getInteger(e,"an_s"), getInteger(e,"luna_s")-1, getInteger(e,"zi_s"), 23, 59, 59);
 
                 if (dateIntervalFound(data_i, data_s)) {
-                    weekOfFoundPeriod = Integer.parseInt(e.getAttribute("saptamana"));
-                    weekOfFoundPeriod += getWeekDifferenceFromFirst(data_i,Calendar.getInstance());
-                    return semester = findSemester(n);
+                    if(e.getAttribute("saptamana").isEmpty()) {
+                        weekOfFoundPeriod = 1;}
+                    else {
+                        weekOfFoundPeriod = Integer.parseInt(e.getAttribute("saptamana")) ;}
+                    weekOfFoundPeriod += getWeekDifferenceFromFirst(data_i, Calendar.getInstance());
+                    //semester = findSemester(n);
+                    return nList.item(0).getNodeName();
+
                 }
             }
         }
-        return "Did not find period/semester";
+        return "Did not find in " + nList.item(0).getNodeName();
     }
 
     private ArrayList<String> createDomainsForSearch(){
@@ -183,19 +191,23 @@ public class TimeClass{
     }
 
     private String searchInDomains(ArrayList<String> p){
-        String g;
         for(int i=0;i<p.size();i++){
-            perioada = findNodes(p.get(i));
-            g = searchDateInterval(perioada);
-            if (g.startsWith("semestrul")){
-                return p.get(i);
+            String g;
+            NodeList perioadeNodeList;
+            perioadeNodeList = findNodes(p.get(i));
+            g = searchDateInterval(perioadeNodeList);
+            if(!g.startsWith("Did")){
+                perioada = g;
+                return perioada;
             }
+
         }
-        return "Did not find the period";
+        return "Did not FIND IN ANY PERIOD: Check the structura.xml";
     }
 
     private String searchMethod2(){
         String g;
+        NodeList perioada;
         perioada = findNodes("predare");
         g = searchDateInterval(perioada);
         if(g.startsWith("semestrul")) {

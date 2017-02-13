@@ -3,32 +3,19 @@ package d.ligaetc;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTabHost;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -64,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
         TextView tv1 = (TextView) findViewById(R.id.textView1);
         TimeClass t = new TimeClass();
         TimetableClass tc = new TimetableClass();
-       tv1.setText("");
-        tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
-        tv1.setText(t.localdayFormat(Calendar.getInstance()));
-        tv1.setText("" + t.getWeekOfFoundPeriod());
+        tv1.setText("");
+        tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext(), 10));
+        //tv1.setText(t.localdayFormat(Calendar.getInstance()));
+        //tv1.setText("" + t.getFoundPeriod());
         subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
         ArrayAdapter<Materie> adapter = new MyListAdapter();
         ListView listView = (ListView) findViewById(R.id.list_materii);
