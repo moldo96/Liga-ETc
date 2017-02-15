@@ -87,4 +87,12 @@ public class TimetableClass {
         }
         return materieArrayList;
     }
+
+    private ArrayList<Materie> arrangeSubjectsInOrder(ArrayList<Materie> subjects){
+        for(int i=0; i<subjects.size()-1; i++)
+            for(int j=i;j<subjects.size(); j++){
+
+        }
+        return subjects;
+    }
 }

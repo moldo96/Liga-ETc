@@ -31,7 +31,7 @@ public class TimeClass {
     private String perioada;
     private String semester;
 
-    public void calendarDayAddition(int additionalDays) {
+    private void dayAdditionFromNow(int additionalDays) {
         dayInCalendar.add(Calendar.DATE, additionalDays);
     }
 
@@ -68,7 +68,7 @@ public class TimeClass {
     public String getHourDifference(String timeToStart, String timeToEnd) {
         Calendar nowInstance = Calendar.getInstance();
         if (nowInstance.get(Calendar.DAY_OF_MONTH) != dayInCalendar.get(Calendar.DAY_OF_MONTH)) {
-        return timeToEnd;
+        return timeToStart;
         } else {
             int actualHour = hourExtractor();
             int actualMinute = minuteExtractor();
@@ -119,7 +119,7 @@ public class TimeClass {
         return 0;
     }
 
-    public String checkDate(Context context) {
+    public ArrayList<Materie> checkDate(Context context, int additionalDays) {
         try {
             AssetManager mgr = context.getAssets();
             this.context = context;
@@ -132,10 +132,15 @@ public class TimeClass {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        dayAdditionFromNow(additionalDays);
         String foundPeriod = searchInDomains(createDomainsForSearch());
         if (foundPeriod != "Did not find the period")
-            return checkTime(foundPeriod);
-        return "error in foundPeriod";
+            checkTime(foundPeriod);
+        ArrayList<Materie> materii = new ArrayList<Materie>();
+        TimetableClass tc = new TimetableClass();
+        materii = tc.OpenTimetable(context,dayExtractor());
+        //return "error in foundPeriod";
+        return materii;
     }
 
     public String checkTime(String period){

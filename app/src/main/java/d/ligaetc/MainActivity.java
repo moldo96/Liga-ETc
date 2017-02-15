@@ -52,12 +52,17 @@ public class MainActivity extends AppCompatActivity {
         TextView tv1 = (TextView) findViewById(R.id.textView1);
         TimetableClass tc = new TimetableClass();
         TimeClass t = new TimeClass();
-        t.calendarDayAddition(0);
         tv1.setText("");
-        tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
+        subjectsList = t.checkDate(getApplicationContext(),0);
+        for(int i=0; i< subjectsList.size(); i++){
+            if(t.getHourDifference(subjectsList.get(i).getOra_i(), subjectsList.get(i).getOra_f())=="A TRECUT"){
+                subjectsList.remove(i);
+            }
+        }
+        //tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext(),0));
         //tv1.setText(t.localdayFormat(Calendar.getInstance()));
         //tv1.setText("" + t.getFoundPeriod());
-        subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
+        //subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
         ArrayAdapter<Materie> adapter = new MyListAdapter(t);
         ListView listView = (ListView) findViewById(R.id.list_materii);
         listView.setAdapter(adapter);
@@ -79,33 +84,36 @@ public class MainActivity extends AppCompatActivity {
             }
             //Find materie
             Materie currentMaterie = subjectsList.get(position);
-            TextView tv = (TextView)itemView.findViewById(R.id.txt_ora);
-            //TimeClass t = new TimeClass();
-            //t.calendarDayAddition(2);
-            tv.setText(t.getHourDifference(currentMaterie.getOra_i(), currentMaterie.getOra_f()));
-            //tv.setText(""+t.dayExtractor());
-            TextView textView1 = (TextView)itemView.findViewById(R.id.txt_numematerie);
-            textView1.setText(currentMaterie.getNume());
-            TextView textView3 = (TextView)itemView.findViewById(R.id.txt_prof);
-            textView3.setText(currentMaterie.getProf());
-            ImageView imgview = (ImageView)itemView.findViewById(R.id.img_prof);
-            TextView t3 = (TextView)itemView.findViewById(R.id.txt_tip);
-            t3.setText(currentMaterie.getTip());
-            TextView t4 = (TextView)itemView.findViewById(R.id.txt_sala);
-            t4.setText("A106");
-            //imgview.setImageDrawable(getResources().getDrawable(R.drawable.blaj));
-            Context context = getApplicationContext();
-            String estring = "d.stoiciu";
-            estring = estring.substring(2);
-            estring = estring.toLowerCase();
-            textView1.setText(estring);
-            imgview.setImageResource(getPictureID(estring,context));
-                    getResources().getDrawable(getPictureID(estring,context));
+            //if(t.getHourDifference(currentMaterie.getOra_i(), currentMaterie.getOra_f())!="A TRECUT") {
+                TextView tv = (TextView) itemView.findViewById(R.id.txt_ora);
+                //TimeClass t = new TimeClass();
 
-            //ImageView imageView = (ImageView)itemView.findViewById(R.id.imageView0);
-            //imgview.setImageResource(getPictureID(estring,context));
+                tv.setText(t.getHourDifference(currentMaterie.getOra_i(), currentMaterie.getOra_f()));
+                //tv.setText(""+t.dayExtractor());
+                TextView textView1 = (TextView) itemView.findViewById(R.id.txt_numematerie);
+                textView1.setText(currentMaterie.getNume());
+                TextView textView3 = (TextView) itemView.findViewById(R.id.txt_prof);
+                textView3.setText(currentMaterie.getProf());
+                ImageView imgview = (ImageView) itemView.findViewById(R.id.img_prof);
+                TextView t3 = (TextView) itemView.findViewById(R.id.txt_tip);
+                t3.setText(currentMaterie.getTip());
+                TextView t4 = (TextView) itemView.findViewById(R.id.txt_sala);
+                t4.setText("A106");
+                //imgview.setImageDrawable(getResources().getDrawable(R.drawable.blaj));
+                Context context = getApplicationContext();
+                String estring = "d.stoiciu";
+                estring = estring.substring(2);
+                estring = estring.toLowerCase();
+                textView1.setText(estring);
+                imgview.setImageResource(getPictureID(estring, context));
+                getResources().getDrawable(getPictureID(estring, context));
 
-            return itemView;
+                //ImageView imageView = (ImageView)itemView.findViewById(R.id.imageView0);
+                //imgview.setImageResource(getPictureID(estring,context));
+
+                return itemView;
+            //}
+            //return null;
         }
     }
 
