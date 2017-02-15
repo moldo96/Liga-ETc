@@ -22,17 +22,17 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * Created by Andrei on 14.12.2016.
  */
 
-public class TimeClass{
+public class TimeClass {
 
     private Document xdoc;
-    private Calendar now = Calendar.getInstance();
+    private Calendar dayInCalendar = Calendar.getInstance();
     private Context context;
     private int weekOfFoundPeriod = 1;
     private String perioada;
     private String semester;
 
-    private void setNow(int additionalDays){
-        now.add(Calendar.DATE,additionalDays);
+    public void calendarDayAddition(int additionalDays) {
+        dayInCalendar.add(Calendar.DATE, additionalDays);
     }
 
     public String localdayFormat(Calendar calendar) {
@@ -40,52 +40,68 @@ public class TimeClass{
         return d;
     }
 
-    public int dayExtractor(){
-        return now.get(Calendar.DAY_OF_WEEK);
+
+    public int dayExtractor() {
+        return dayInCalendar.get(Calendar.DAY_OF_WEEK);
     }
 
     public int hourExtractor() {
-        return now.get(Calendar.HOUR_OF_DAY);
+        return dayInCalendar.get(Calendar.HOUR_OF_DAY);
     }
 
     public int minuteExtractor() {
-        return now.get(Calendar.MINUTE);
+        return dayInCalendar.get(Calendar.MINUTE);
     }
 
     public int monthExtractor() {
-        return now.get(Calendar.MONTH);
+        return dayInCalendar.get(Calendar.MONTH);
     }
 
     public int weekExtractor() {
-        return now.get(Calendar.WEEK_OF_YEAR);
+        return dayInCalendar.get(Calendar.WEEK_OF_YEAR);
     }
 
-    public String getFoundPeriod()
-    {
+    public String getFoundPeriod() {
         return perioada + ", saptamana " + weekOfFoundPeriod;
     }
 
-    public String getHourDifference(String timeToStart, String timeToEnd){
-        int actualHour = hourExtractor();
-        int actualMinute = minuteExtractor();
-        String[] fractions1=timeToStart.split(":");
-        String[] fractions2=timeToStart.split(":");
-        int hourToEnd = Integer.parseInt(fractions2[0]);
-        int minuteToEnd = Integer.parseInt(fractions2[1]);
-        int hourToStart = Integer.parseInt(fractions1[0]);
-        int minuteToStart = Integer.parseInt(fractions1[1]);
-        int hourDifference = hourToStart - actualHour - 1;
-        int minutesDifference = 59 - actualMinute;
-        if(hourDifference < 0 ){
-            if(getIfDuringCourse(actualHour, actualMinute, hourToEnd, minuteToEnd ))
-                return "ACUM";
-            else return "A TRECUT";}
-        return hourDifference + ":" + minutesDifference;
+    public String getHourDifference(String timeToStart, String timeToEnd) {
+        Calendar nowInstance = Calendar.getInstance();
+        if (nowInstance.get(Calendar.DAY_OF_MONTH) != dayInCalendar.get(Calendar.DAY_OF_MONTH)) {
+        return timeToEnd;
+        } else {
+            int actualHour = hourExtractor();
+            int actualMinute = minuteExtractor();
+            String[] fractions1 = timeToStart.split(":");
+            String[] fractions2 = timeToEnd.split(":");
+            int hourToEnd = Integer.parseInt(fractions2[0]);
+            int minuteToEnd = Integer.parseInt(fractions2[1]);
+            int hourToStart = Integer.parseInt(fractions1[0]);
+            int minuteToStart = Integer.parseInt(fractions1[1]);
+            int hourDifference = hourToStart - actualHour - 1;
+            int minutesDifference = 59 - actualMinute;
+            if (hourDifference < 0) {
+                if(getIfDuringCourse(actualHour, actualMinute, hourToEnd, minuteToEnd))
+                    return "ACUM";
+                else return "A TRECUT";
+            }
+            return timeDisplaySettings(hourDifference)+":"+timeDisplaySettings(minutesDifference);
+        }
+    }
+
+
+    private String timeDisplaySettings(int value){
+        if(value<10){
+            return "0"+value;
+        }else {
+            return ""+value;
+        }
     }
 
     private boolean getIfDuringCourse(int actualHour, int actualMinute, int finalHour, int finalMinute){
         int hourDifference = finalHour - actualHour;
         int minuteDifference = hourDifference * 60 - actualMinute + finalMinute;
+        //return ""+finalHour+ "lll "+ actualHour;
         if(minuteDifference > 0)
             return true;
         return false;
@@ -103,7 +119,7 @@ public class TimeClass{
         return 0;
     }
 
-    public String checkDate(Context context, int additionalDays) {
+    public String checkDate(Context context) {
         try {
             AssetManager mgr = context.getAssets();
             this.context = context;
@@ -116,24 +132,23 @@ public class TimeClass{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setNow(additionalDays);
         String foundPeriod = searchInDomains(createDomainsForSearch());
         if (foundPeriod != "Did not find the period")
             return checkTime(foundPeriod);
-        return "error in foudnPeriod";
+        return "error in foundPeriod";
     }
 
-    private String checkTime(String period){
+    public String checkTime(String period){
         int day = dayExtractor();
-        if(period.startsWith("predare")){
-            if(day>0&&day<6){
+        //if(period.startsWith("predare")){
+            if(day>1&&day<7){
                 return "TimeTable of Day"+ day;
             }
-            return "Weekend"+ day;
-        }
-        else if(period.startsWith("sesiune")){return "Sesiune...ooooof "+ day;}// sesiune
-        else if(period.startsWith("vacanta")){return "Vacanta WOOOOO - HOOOOOO"+ day;} //vacanta
-        return "Did not find in checktime function";
+            return "Weekend" + day;
+        //}
+        //else if(period.startsWith("sesiune")){return "Sesiune...ooooof "+ day;}// sesiune
+        //else if(period.startsWith("vacanta")){return "Vacanta WOOOOO - HOOOOOO"+ day;} //vacanta
+        //return "Did not find in checktime function";
     }
 
     private String showDate(Calendar d) {
@@ -151,7 +166,7 @@ public class TimeClass{
 
     private boolean dateIntervalFound(Calendar c1, Calendar c2){
 
-        return (c1.before(now) && c2.after(now));
+        return (c1.before(dayInCalendar) && c2.after(dayInCalendar));
     }
 
     private String searchDateInterval(NodeList nList){

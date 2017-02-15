@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     AlertDialog alertDialog; String a="";
     ArrayList<Materie> subjectsList;
+    //TimeClass t = new TimeClass();
 
 
     @Override
@@ -49,22 +50,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         TextView tv1 = (TextView) findViewById(R.id.textView1);
-        TimeClass t = new TimeClass();
         TimetableClass tc = new TimetableClass();
+        TimeClass t = new TimeClass();
+        t.calendarDayAddition(0);
         tv1.setText("");
-        tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext(), 10));
+        tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext()));
         //tv1.setText(t.localdayFormat(Calendar.getInstance()));
         //tv1.setText("" + t.getFoundPeriod());
         subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
-        ArrayAdapter<Materie> adapter = new MyListAdapter();
+        ArrayAdapter<Materie> adapter = new MyListAdapter(t);
         ListView listView = (ListView) findViewById(R.id.list_materii);
         listView.setAdapter(adapter);
 
     }
 
     private class MyListAdapter extends ArrayAdapter<Materie>{
-        private MyListAdapter(){
+        TimeClass t;
+        private MyListAdapter(TimeClass timeClass){
             super(MainActivity.this,R.layout.singlerow_list1, subjectsList);
+            t = timeClass;
         }
 
         @Override
@@ -75,10 +79,11 @@ public class MainActivity extends AppCompatActivity {
             }
             //Find materie
             Materie currentMaterie = subjectsList.get(position);
-            TimeClass t = new TimeClass();
-            // Fill the view
             TextView tv = (TextView)itemView.findViewById(R.id.txt_ora);
+            //TimeClass t = new TimeClass();
+            //t.calendarDayAddition(2);
             tv.setText(t.getHourDifference(currentMaterie.getOra_i(), currentMaterie.getOra_f()));
+            //tv.setText(""+t.dayExtractor());
             TextView textView1 = (TextView)itemView.findViewById(R.id.txt_numematerie);
             textView1.setText(currentMaterie.getNume());
             TextView textView3 = (TextView)itemView.findViewById(R.id.txt_prof);
