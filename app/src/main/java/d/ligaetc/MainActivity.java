@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         TimeClass t = new TimeClass();
         tv1.setText("");
         subjectsList = t.checkDate(getApplicationContext(),0);
+        tv1.setText(tc.getXmlData(getApplicationContext()));
         for(int i=0; i< subjectsList.size(); i++){
             if(t.getHourDifference(subjectsList.get(i).getOra_i(), subjectsList.get(i).getOra_f())=="A TRECUT"){
                 subjectsList.remove(i);

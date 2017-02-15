@@ -36,8 +36,7 @@ public class TimeClass {
     }
 
     public String localdayFormat(Calendar calendar) {
-        String d = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
-        return d;
+        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
     }
 
 
@@ -102,9 +101,7 @@ public class TimeClass {
         int hourDifference = finalHour - actualHour;
         int minuteDifference = hourDifference * 60 - actualMinute + finalMinute;
         //return ""+finalHour+ "lll "+ actualHour;
-        if(minuteDifference > 0)
-            return true;
-        return false;
+        return (minuteDifference > 0);
     }
 
     private int getWeekDifferenceFromFirst(Calendar firstDay, Calendar todayDate) {
@@ -134,7 +131,7 @@ public class TimeClass {
         }
         dayAdditionFromNow(additionalDays);
         String foundPeriod = searchInDomains(createDomainsForSearch());
-        if (foundPeriod != "Did not find the period")
+        if (!foundPeriod.equals("Did not find the period"))
             checkTime(foundPeriod);
         ArrayList<Materie> materii = new ArrayList<Materie>();
         TimetableClass tc = new TimetableClass();
@@ -263,5 +260,9 @@ public class TimeClass {
             nameOfSubjects +=  materieArrayList.get(i).getNume() + " ";
         }
         return nameOfSubjects;
+    }
+
+    public String stringreturn(String l){
+        return l;
     }
 }

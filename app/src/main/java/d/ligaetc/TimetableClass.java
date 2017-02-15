@@ -9,11 +9,16 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.security.auth.Subject;
 import javax.xml.parsers.DocumentBuilder;
@@ -50,6 +55,7 @@ public class TimetableClass {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //checkStudentGroup(materieArrayList);
         return materieArrayList;
     }
 
@@ -60,11 +66,10 @@ public class TimetableClass {
         String ora_i = element.getAttribute("ora_i");
         String ora_f = element.getAttribute("ora_f");
         String sala = element.getAttribute("sala");
-        Materie subject = new Materie(nume, tip, prof, ora_i, ora_f, sala);
-        return subject;
+        return new Materie(nume, tip, prof, ora_i, ora_f, sala);
     }
 
-    private ArrayList<Materie> checkStudentGroup(ArrayList<Materie> materieArrayList) {
+    public String checkStudentGroup() {
         String G = "", g = "";
         try {
             File file = new File("PROFIL.xml");
@@ -72,27 +77,41 @@ public class TimetableClass {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
-            Node profileNode = doc.getElementsByTagName("profil").item(0);
-            if (profileNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element e = (Element) profileNode;
-                G = e.getAttribute("G");
-                g = e.getAttribute("g");
-            }
+            return doc.getElementsByTagName("yt").item(0).toString();
+            //Node profileNode = doc.getElementsByTagName("profil").item(0);
+            //if (profileNode.getNodeType() == Node.ELEMENT_NODE) {
+                //Element e = (Element) profileNode;
+                //G = e.getAttribute("G");
+                //g = e.getAttribute("g");
+            //}
+//            for (Materie materie : materieArrayList){
+//                if((!materie.getG().equals("")) && (!materie.getG().equals(G))) {
+//                    materieArrayList.remove(materie);
+//                }else if(materie.getG()==G){
+//                    if(materie.getg()!="" && materie.getg()!=g){
+//                        materieArrayList.remove(materie);
+//                    }
+//                }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        for (Materie m : materieArrayList) {
-
-        }
-        return materieArrayList;
+        return "LPL";
     }
-
-    private ArrayList<Materie> arrangeSubjectsInOrder(ArrayList<Materie> subjects){
-        for(int i=0; i<subjects.size()-1; i++)
-            for(int j=i;j<subjects.size(); j++){
-
+    public String getXmlData(Context context) {
+        String doc = "";
+        try {
+            FileInputStream fileInputStream = context.openFileInput("PROFIL.xml");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                doc = doc + line;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return subjects;
+        return doc;
     }
 }
