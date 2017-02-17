@@ -2,6 +2,7 @@ package d.ligaetc;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.widget.TextView;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -88,6 +89,36 @@ public class TimeClass {
         }
     }
 
+    private ArrayList<Materie> removeFinishedSubjects(ArrayList<Materie> materieArrayList) {
+        Calendar nowInstance = Calendar.getInstance();
+        if (nowInstance.get(Calendar.DAY_OF_MONTH) == dayInCalendar.get(Calendar.DAY_OF_MONTH)) {
+            for (int i = 0; i < materieArrayList.size(); i++) {
+                int actualHour = hourExtractor();
+                int actualMinute = minuteExtractor();
+                String[] fractions1 = materieArrayList.get(i).getOra_i().split(":");
+                String[] fractions2 = materieArrayList.get(i).getOra_f().split(":");
+                int hourToEnd = Integer.parseInt(fractions2[0]);
+                int minuteToEnd = Integer.parseInt(fractions2[1]);
+                int hourToStart = Integer.parseInt(fractions1[0]);
+                int minuteToStart = Integer.parseInt(fractions1[1]);
+                int hourDifference = hourToStart - actualHour - 1;
+                int minutesDifference = 59 - actualMinute;
+                if (hourDifference < 0) {
+                    if (!getIfDuringCourse(actualHour, actualMinute, hourToEnd, minuteToEnd)) {
+                        materieArrayList.remove(i);
+                        i--;
+                    } else {
+                        materieArrayList.get(i).setAdditionalCommentString("ACUM");
+                    }
+                } else {
+                materieArrayList.get(i).setAdditionalCommentString(timeDisplaySettings(hourDifference)+":"+timeDisplaySettings(minutesDifference));
+                }
+            }
+        }
+        return materieArrayList;
+    }
+
+
 
     private String timeDisplaySettings(int value){
         if(value<10){
@@ -131,27 +162,22 @@ public class TimeClass {
         }
         dayAdditionFromNow(additionalDays);
         String foundPeriod = searchInDomains(createDomainsForSearch());
-        if (!foundPeriod.equals("Did not find the period"))
-            checkTime(foundPeriod);
-        ArrayList<Materie> materii = new ArrayList<Materie>();
-        TimetableClass tc = new TimetableClass();
-        materii = tc.OpenTimetable(context,dayExtractor());
-        //return "error in foundPeriod";
-        return materii;
+        if (foundPeriod.equals("predare")) {
+            if(checkIfWeekday())
+            return removeFinishedSubjects(new TimetableClass().OpenTimetable(context, dayExtractor()));
+        }
+        return new ArrayList<Materie>();
     }
 
-    public String checkTime(String period){
+    private boolean checkIfWeekday() {
         int day = dayExtractor();
-        //if(period.startsWith("predare")){
-            if(day>1&&day<7){
-                return "TimeTable of Day"+ day;
-            }
-            return "Weekend" + day;
+        return day > 1 && day < 7;
+    }
         //}
         //else if(period.startsWith("sesiune")){return "Sesiune...ooooof "+ day;}// sesiune
         //else if(period.startsWith("vacanta")){return "Vacanta WOOOOO - HOOOOOO"+ day;} //vacanta
         //return "Did not find in checktime function";
-    }
+    //}
 
     private String showDate(Calendar d) {
 

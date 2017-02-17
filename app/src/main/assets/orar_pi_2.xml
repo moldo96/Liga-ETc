@@ -83,7 +83,7 @@
                />
       <materie nume="SS" tip="(l)" prof="C. Nafornita" ora_i="14:00" ora_f="15:10" G="1" g="1" sapt="pare"
                />
-      <materie nume="SS" tip="(l)" prof="C. Nafornita" ora_i="14:00" ora_f="15:10" G="1" g="2" sapt="im pare"
+      <materie nume="SS" tip="(l)" prof="C. Nafornita" ora_i="14:00" ora_f="15:10" G="1" g="2" sapt="impare"
                />
     </z_6>
 </zi>

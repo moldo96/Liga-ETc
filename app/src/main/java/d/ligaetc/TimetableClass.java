@@ -2,6 +2,7 @@ package d.ligaetc;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.support.v7.app.AppCompatActivity;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,6 +34,7 @@ public class TimetableClass {
     private Document xdoc;
     private NodeList listOfSubjects;
     private Node nodeofDay;
+    private String G, g = "";
 
     public ArrayList<Materie> OpenTimetable(Context context, int day) {
         ArrayList<Materie> materieArrayList = new ArrayList<Materie>();
@@ -55,7 +57,8 @@ public class TimetableClass {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //checkStudentGroup(materieArrayList);
+        checkStudentGroup(context);
+        //materieArrayList = removeSubjectsFromOtherGroups(materieArrayList);
         return materieArrayList;
     }
 
@@ -69,49 +72,36 @@ public class TimetableClass {
         return new Materie(nume, tip, prof, ora_i, ora_f, sala);
     }
 
-    public String checkStudentGroup() {
-        String G = "", g = "";
+    private void checkStudentGroup(Context context) {
         try {
-            File file = new File("PROFIL.xml");
+            File file = context.getFileStreamPath("PROFIL.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
-            return doc.getElementsByTagName("yt").item(0).toString();
-            //Node profileNode = doc.getElementsByTagName("profil").item(0);
-            //if (profileNode.getNodeType() == Node.ELEMENT_NODE) {
-                //Element e = (Element) profileNode;
-                //G = e.getAttribute("G");
-                //g = e.getAttribute("g");
-            //}
-//            for (Materie materie : materieArrayList){
-//                if((!materie.getG().equals("")) && (!materie.getG().equals(G))) {
-//                    materieArrayList.remove(materie);
-//                }else if(materie.getG()==G){
-//                    if(materie.getg()!="" && materie.getg()!=g){
-//                        materieArrayList.remove(materie);
-//                    }
-//                }
-//            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return "LPL";
-    }
-    public String getXmlData(Context context) {
-        String doc = "";
-        try {
-            FileInputStream fileInputStream = context.openFileInput("PROFIL.xml");
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String line = "";
-            while ((line = bufferedReader.readLine()) != null) {
-                doc = doc + line;
+            Node n = doc.getElementsByTagName("profil").item(0);
+            if (n.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) n;
+                G = element.getAttribute("G");
+                g = element.getAttribute("g");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return doc;
+    }
+
+    private ArrayList<Materie> removeSubjectsFromOtherGroups(ArrayList<Materie> materieArrayList) {
+        for (int i = 0; i < materieArrayList.size(); i++) {
+            if(!materieArrayList.get(i).getG().equals("")&&!materieArrayList.get(i).getG().equals(G)){
+                materieArrayList.remove(i);
+                i--;
+            } //else if(materie.getG().equals(G)){
+               // if(!materie.getg().equals("")&&!materie.getg().equals(g)){
+                    //materieArrayList.remove(i);
+                   // i--;
+                //}
+           // }
+        }
+        return materieArrayList;
     }
 }

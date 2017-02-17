@@ -15,9 +15,19 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * Created by Andrei on 24.01.2017.
@@ -30,8 +40,31 @@ public class Try extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.try1);
         Intent intent = getIntent();
-        //TextView tv = (TextView) findViewById(R.id.textView1);
+        TextView tv = (TextView) findViewById(R.id.textView1);
+        tv.setText(getNewXmlData());
 
+    }
+
+    private String getNewXmlData() {
+        String G = "", g = "";
+        try {
+            File file = getFileStreamPath("PROFIL.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(file);
+            doc.getDocumentElement().normalize();
+            Node n = doc.getElementsByTagName("profil").item(0);
+            if(n.getNodeType() == Node.ELEMENT_NODE)
+            {
+                Element element = (Element) n;
+                G = element.getAttribute("G");
+                g = element.getAttribute("g");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "LOL";
     }
 
     private String getXmlData() {

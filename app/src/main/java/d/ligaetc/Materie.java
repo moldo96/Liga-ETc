@@ -10,9 +10,10 @@ class Materie {
     private String prof;
     private String ora_i;
     private String ora_f;
-    private  String sala;
+    private String sala;
     private String G;
     private String g;
+    private String additionalCommentString;
 
     public Materie(String nume, String tip, String prof, String ora_i, String ora_f, String sala){
         this.nume = nume;
@@ -23,7 +24,7 @@ class Materie {
         this.sala = sala;
     }
 
-     public String getNume(){
+    public String getNume(){
         return nume;
     }
 
@@ -47,5 +48,9 @@ class Materie {
 
     public String getg() {
         return g;
+    }
+
+    public void setAdditionalCommentString(String a){
+        additionalCommentString = a;
     }
 }

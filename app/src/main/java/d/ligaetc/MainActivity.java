@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -30,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.try1);
         //File file = new File(getApplicationContext().getFilesDir(),"PROFIL.xml");
         //if(!file.exists()){
-            //Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
-           // startActivity(intent);}
+        //Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
+        // startActivity(intent);}
         //else {
-            //Intent intent = new Intent(getApplicationContext(), TemporaryJob.class);
-            //startActivity(intent);
+        //Intent intent = new Intent(getApplicationContext(), TemporaryJob.class);
+        //startActivity(intent);
         //}
 
 
@@ -50,16 +52,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         TextView tv1 = (TextView) findViewById(R.id.textView1);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.clickMe);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                File f = new File("PROFIL.xml");
+                    f.delete();
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(intent);
+
+            }
+        });
         TimetableClass tc = new TimetableClass();
         TimeClass t = new TimeClass();
         tv1.setText("");
-        subjectsList = t.checkDate(getApplicationContext(),0);
-        tv1.setText(tc.getXmlData(getApplicationContext()));
-        for(int i=0; i< subjectsList.size(); i++){
-            if(t.getHourDifference(subjectsList.get(i).getOra_i(), subjectsList.get(i).getOra_f())=="A TRECUT"){
-                subjectsList.remove(i);
-            }
-        }
+        subjectsList = t.checkDate(getApplicationContext(),3);
+        //tv1.setText(tc.getXmlData(getApplicationContext()));
+        //for(int i=0; i< subjectsList.size(); i++){
+        //if(t.getHourDifference(subjectsList.get(i).getOra_i(), subjectsList.get(i).getOra_f())=="A TRECUT"){
+        //subjectsList.remove(i);
+    //}
+        //}
         //tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext(),0));
         //tv1.setText(t.localdayFormat(Calendar.getInstance()));
         //tv1.setText("" + t.getFoundPeriod());
