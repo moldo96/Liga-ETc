@@ -59,6 +59,7 @@ public class Try extends AppCompatActivity {
                 Element element = (Element) n;
                 G = element.getAttribute("G");
                 g = element.getAttribute("g");
+                return G+g;
             }
 
         } catch (Exception e) {

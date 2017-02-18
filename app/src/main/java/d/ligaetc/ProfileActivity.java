@@ -89,7 +89,7 @@ public class ProfileActivity extends AppCompatActivity {
             xmlSerializer.flush();
             fileOutputStream.write(writer.toString().getBytes());
             fileOutputStream.close();
-            Intent intent1 = new Intent(getApplicationContext(),Try.class);
+            Intent intent1 = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent1);
         } catch (Exception e) {
             e.printStackTrace();

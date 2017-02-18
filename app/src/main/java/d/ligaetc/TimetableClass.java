@@ -31,34 +31,34 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 
 public class TimetableClass {
-    private Document xdoc;
-    private NodeList listOfSubjects;
-    private Node nodeofDay;
-    private String G, g = "";
+    private String G="",g="";
 
     public ArrayList<Materie> OpenTimetable(Context context, int day) {
         ArrayList<Materie> materieArrayList = new ArrayList<Materie>();
+        checkStudentGroup(context);
         try {
             AssetManager mgr = context.getAssets();
             InputStream istream = mgr.open("orar_pi_2.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document xdoc;
             xdoc = dBuilder.parse(istream);
             xdoc.normalize();
-            nodeofDay = xdoc.getElementsByTagName("z_" + day).item(0);
-            listOfSubjects = nodeofDay.getChildNodes();
+            Node nodeofDay = xdoc.getElementsByTagName("z_" + day).item(0);
+            NodeList listOfSubjects = nodeofDay.getChildNodes();
             for (int i = 0; i < listOfSubjects.getLength(); i++) {
                 if (listOfSubjects.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     Node nodeOfSubject = listOfSubjects.item(i);
                     Element elementOfSubject = (Element) nodeOfSubject;
+                    if(checkElementofSubject(elementOfSubject))
                     materieArrayList.add(initializeSubject(elementOfSubject));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        checkStudentGroup(context);
-        //materieArrayList = removeSubjectsFromOtherGroups(materieArrayList);
+        //if(checkStudentGroup(context))
+            //materieArrayList = removeSubjectsFromOtherGroups(materieArrayList);
         return materieArrayList;
     }
 
@@ -69,10 +69,12 @@ public class TimetableClass {
         String ora_i = element.getAttribute("ora_i");
         String ora_f = element.getAttribute("ora_f");
         String sala = element.getAttribute("sala");
-        return new Materie(nume, tip, prof, ora_i, ora_f, sala);
+        String G = element.getAttribute("G");
+        String g = element.getAttribute("g");
+        return new Materie(nume, tip, prof, ora_i, ora_f, sala, G, g);
     }
 
-    private void checkStudentGroup(Context context) {
+    private boolean checkStudentGroup(Context context) {
         try {
             File file = context.getFileStreamPath("PROFIL.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -84,24 +86,34 @@ public class TimetableClass {
                 Element element = (Element) n;
                 G = element.getAttribute("G");
                 g = element.getAttribute("g");
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    private ArrayList<Materie> removeSubjectsFromOtherGroups(ArrayList<Materie> materieArrayList) {
+    /*private ArrayList<Materie> removeSubjectsFromOtherGroups(ArrayList<Materie> materieArrayList) {
         for (int i = 0; i < materieArrayList.size(); i++) {
-            if(!materieArrayList.get(i).getG().equals("")&&!materieArrayList.get(i).getG().equals(G)){
+            Materie materie = materieArrayList.get(i);
+            if(!materie.getG().isEmpty()&&!materie.getG().equals(G)){
                 materieArrayList.remove(i);
                 i--;
-            } //else if(materie.getG().equals(G)){
-               // if(!materie.getg().equals("")&&!materie.getg().equals(g)){
-                    //materieArrayList.remove(i);
-                   // i--;
-                //}
-           // }
+            } else if(materie.getG().equals(G)){
+               if(!materie.getg().isEmpty()&&!materie.getg().equals(g)){
+                    materieArrayList.remove(i);
+                    i--;
+                }
+            }
         }
         return materieArrayList;
+    }
+*/
+    private boolean checkElementofSubject(Element e) {
+        if(e.getAttribute("G").equals(G)||e.getAttribute("G").isEmpty())
+            if(e.getAttribute("g").isEmpty()||e.getAttribute("g").equals(g))
+                return true;
+        return false;
     }
 }

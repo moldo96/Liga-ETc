@@ -65,7 +65,7 @@ public class TimeClass {
         return perioada + ", saptamana " + weekOfFoundPeriod;
     }
 
-    public String getHourDifference(String timeToStart, String timeToEnd) {
+    /*public String getHourDifference(String timeToStart, String timeToEnd) {
         Calendar nowInstance = Calendar.getInstance();
         if (nowInstance.get(Calendar.DAY_OF_MONTH) != dayInCalendar.get(Calendar.DAY_OF_MONTH)) {
         return timeToStart;
@@ -87,7 +87,7 @@ public class TimeClass {
             }
             return timeDisplaySettings(hourDifference)+":"+timeDisplaySettings(minutesDifference);
         }
-    }
+    }*/
 
     private ArrayList<Materie> removeFinishedSubjects(ArrayList<Materie> materieArrayList) {
         Calendar nowInstance = Calendar.getInstance();
@@ -111,24 +111,26 @@ public class TimeClass {
                         materieArrayList.get(i).setAdditionalCommentString("ACUM");
                     }
                 } else {
-                materieArrayList.get(i).setAdditionalCommentString(timeDisplaySettings(hourDifference)+":"+timeDisplaySettings(minutesDifference));
+                    materieArrayList.get(i).setAdditionalCommentString(timeDisplaySettings(hourDifference) + ":" + timeDisplaySettings(minutesDifference));
                 }
             }
-        }
+        } else
+            for (int i = 0; i < materieArrayList.size(); i++) {
+                materieArrayList.get(i).setAdditionalCommentString(materieArrayList.get(i).getOra_i());
+            }
         return materieArrayList;
     }
 
 
-
-    private String timeDisplaySettings(int value){
-        if(value<10){
-            return "0"+value;
-        }else {
-            return ""+value;
+    private String timeDisplaySettings(int value) {
+        if (value < 10) {
+            return "0" + value;
+        } else {
+            return "" + value;
         }
     }
 
-    private boolean getIfDuringCourse(int actualHour, int actualMinute, int finalHour, int finalMinute){
+    private boolean getIfDuringCourse(int actualHour, int actualMinute, int finalHour, int finalMinute) {
         int hourDifference = finalHour - actualHour;
         int minuteDifference = hourDifference * 60 - actualMinute + finalMinute;
         //return ""+finalHour+ "lll "+ actualHour;
@@ -138,10 +140,9 @@ public class TimeClass {
     private int getWeekDifferenceFromFirst(Calendar firstDay, Calendar todayDate) {
         int firstDayofSemester = firstDay.get(Calendar.DAY_OF_YEAR);
         int today = todayDate.get(Calendar.DAY_OF_YEAR);
-        if(today > firstDayofSemester){
+        if (today > firstDayofSemester) {
             return (today - firstDayofSemester) / 7;
-        }
-        else if(firstDayofSemester > today){
+        } else if (firstDayofSemester > today) {
             return (365 - firstDayofSemester + today) / 7;
         }
         return 0;
@@ -163,8 +164,8 @@ public class TimeClass {
         dayAdditionFromNow(additionalDays);
         String foundPeriod = searchInDomains(createDomainsForSearch());
         if (foundPeriod.equals("predare")) {
-            if(checkIfWeekday())
-            return removeFinishedSubjects(new TimetableClass().OpenTimetable(context, dayExtractor()));
+            if (checkIfWeekday())
+                return removeFinishedSubjects(new TimetableClass().OpenTimetable(context, dayExtractor()));
         }
         return new ArrayList<Materie>();
     }
@@ -173,10 +174,10 @@ public class TimeClass {
         int day = dayExtractor();
         return day > 1 && day < 7;
     }
-        //}
-        //else if(period.startsWith("sesiune")){return "Sesiune...ooooof "+ day;}// sesiune
-        //else if(period.startsWith("vacanta")){return "Vacanta WOOOOO - HOOOOOO"+ day;} //vacanta
-        //return "Did not find in checktime function";
+    //}
+    //else if(period.startsWith("sesiune")){return "Sesiune...ooooof "+ day;}// sesiune
+    //else if(period.startsWith("vacanta")){return "Vacanta WOOOOO - HOOOOOO"+ day;} //vacanta
+    //return "Did not find in checktime function";
     //}
 
     private String showDate(Calendar d) {
@@ -192,29 +193,29 @@ public class TimeClass {
         return xdoc.getElementsByTagName(s);
     }
 
-    private boolean dateIntervalFound(Calendar c1, Calendar c2){
+    private boolean dateIntervalFound(Calendar c1, Calendar c2) {
 
         return (c1.before(dayInCalendar) && c2.after(dayInCalendar));
     }
 
-    private String searchDateInterval(NodeList nList){
+    private String searchDateInterval(NodeList nList) {
         Calendar data_i, data_s;
         data_i = new GregorianCalendar();
         data_s = new GregorianCalendar();
-        String de_iesit="";
-        for (int  i= 0; i < nList.getLength(); i++) {
+        String de_iesit = "";
+        for (int i = 0; i < nList.getLength(); i++) {
             Node n = nList.item(i);
-            if (n.getNodeType() == Node.ELEMENT_NODE)
-            {
+            if (n.getNodeType() == Node.ELEMENT_NODE) {
                 Element e = (Element) n;
-                data_i.set(getInteger(e,"an_i"), getInteger(e,"luna_i")-1, getInteger(e,"zi_i"), 0,0,0);
-                data_s.set(getInteger(e,"an_s"), getInteger(e,"luna_s")-1, getInteger(e,"zi_s"), 23, 59, 59);
+                data_i.set(getInteger(e, "an_i"), getInteger(e, "luna_i") - 1, getInteger(e, "zi_i"), 0, 0, 0);
+                data_s.set(getInteger(e, "an_s"), getInteger(e, "luna_s") - 1, getInteger(e, "zi_s"), 23, 59, 59);
 
                 if (dateIntervalFound(data_i, data_s)) {
-                    if(e.getAttribute("saptamana").isEmpty()) {
-                        weekOfFoundPeriod = 1;}
-                    else {
-                        weekOfFoundPeriod = Integer.parseInt(e.getAttribute("saptamana")) ;}
+                    if (e.getAttribute("saptamana").isEmpty()) {
+                        weekOfFoundPeriod = 1;
+                    } else {
+                        weekOfFoundPeriod = Integer.parseInt(e.getAttribute("saptamana"));
+                    }
                     weekOfFoundPeriod += getWeekDifferenceFromFirst(data_i, Calendar.getInstance());
                     //semester = findSemester(n);
                     return nList.item(0).getNodeName();
@@ -225,7 +226,7 @@ public class TimeClass {
         return "Did not find in " + nList.item(0).getNodeName();
     }
 
-    private ArrayList<String> createDomainsForSearch(){
+    private ArrayList<String> createDomainsForSearch() {
         ArrayList<String> tip = new ArrayList<String>();
         tip.add("predare");
         tip.add("sesiune");
@@ -233,13 +234,13 @@ public class TimeClass {
         return tip;
     }
 
-    private String searchInDomains(ArrayList<String> p){
-        for(int i=0;i<p.size();i++){
+    private String searchInDomains(ArrayList<String> p) {
+        for (int i = 0; i < p.size(); i++) {
             String g;
             NodeList perioadeNodeList;
             perioadeNodeList = findNodes(p.get(i));
             g = searchDateInterval(perioadeNodeList);
-            if(!g.startsWith("Did")){
+            if (!g.startsWith("Did")) {
                 perioada = g;
                 return perioada;
             }
@@ -248,7 +249,7 @@ public class TimeClass {
         return "Did not FIND IN ANY PERIOD: Check the structura.xml";
     }
 
-    private String searchMethod2(){
+    /*private String searchMethod2(){
         String g;
         NodeList perioada;
         perioada = findNodes("predare");
@@ -273,22 +274,19 @@ public class TimeClass {
             }
         }
     }
-
+*/
     public String findSemester(Node node) {
         return node.getParentNode().getNodeName();
     }
 
-    private String getTimetableofDay(int day){
+    private String getTimetableofDay(int day) {
         String nameOfSubjects = "";
         TimetableClass tc = new TimetableClass();
         ArrayList<Materie> materieArrayList = tc.OpenTimetable(context, day);
-        for(int i=0;i<materieArrayList.size();i++){
-            nameOfSubjects +=  materieArrayList.get(i).getNume() + " ";
+        for (int i = 0; i < materieArrayList.size(); i++) {
+            nameOfSubjects += materieArrayList.get(i).getNume() + " ";
         }
         return nameOfSubjects;
     }
 
-    public String stringreturn(String l){
-        return l;
-    }
 }

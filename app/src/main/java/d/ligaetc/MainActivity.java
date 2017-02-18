@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         });
         TimetableClass tc = new TimetableClass();
         TimeClass t = new TimeClass();
-        tv1.setText("");
-        subjectsList = t.checkDate(getApplicationContext(),3);
+        //tv1.setText(tc.checkStudentGroup(getApplicationContext()));
+        subjectsList = t.checkDate(getApplicationContext(),4);
         //tv1.setText(tc.getXmlData(getApplicationContext()));
         //for(int i=0; i< subjectsList.size(); i++){
         //if(t.getHourDifference(subjectsList.get(i).getOra_i(), subjectsList.get(i).getOra_f())=="A TRECUT"){
@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
         //tv1.setText(t.localdayFormat(Calendar.getInstance()));
         //tv1.setText("" + t.getFoundPeriod());
         //subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
+        //tv1.setText(tc.checkStudentGroup(getApplicationContext()));
+        //tc.checkStudentGroup(getApplicationContext(), "g");
+        //tv1.setText(tc.pac(subjectsList));
         ArrayAdapter<Materie> adapter = new MyListAdapter(t);
         ListView listView = (ListView) findViewById(R.id.list_materii);
         listView.setAdapter(adapter);
@@ -101,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
             //if(t.getHourDifference(currentMaterie.getOra_i(), currentMaterie.getOra_f())!="A TRECUT") {
                 TextView tv = (TextView) itemView.findViewById(R.id.txt_ora);
                 //TimeClass t = new TimeClass();
-
-                tv.setText(t.getHourDifference(currentMaterie.getOra_i(), currentMaterie.getOra_f()));
+tv.setText(currentMaterie.getAdditionalCommentString());
+                //tv.setText(t.getHourDifference(currentMaterie.getOra_i(), currentMaterie.getOra_f()));
                 //tv.setText(""+t.dayExtractor());
                 TextView textView1 = (TextView) itemView.findViewById(R.id.txt_numematerie);
                 textView1.setText(currentMaterie.getNume());

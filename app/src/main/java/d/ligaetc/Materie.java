@@ -15,13 +15,15 @@ class Materie {
     private String g;
     private String additionalCommentString;
 
-    public Materie(String nume, String tip, String prof, String ora_i, String ora_f, String sala){
+    public Materie(String nume, String tip, String prof, String ora_i, String ora_f, String sala, String G, String g){
         this.nume = nume;
         this.tip = tip;
         this.prof = prof;
         this.ora_i = ora_i;
         this.ora_f = ora_f;
         this.sala = sala;
+        this.G = G;
+        this.g = g;
     }
 
     public String getNume(){
@@ -52,5 +54,9 @@ class Materie {
 
     public void setAdditionalCommentString(String a){
         additionalCommentString = a;
+    }
+
+    public String getAdditionalCommentString() {
+        return additionalCommentString;
     }
 }

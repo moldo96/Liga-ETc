@@ -27,7 +27,7 @@
                />
     </z_2>
     <z_3>
-      <materie nume="CAD" tip="(c)" prof="A. Avram" ora_i="8:00" ora_f="10:10" G="1" g="1" sapt="toate"
+      <materie nume="CAD" tip="(c)" prof="A. Avram" ora_i="8:00" ora_f="10:10" sapt="toate"
                />
       <materie nume="EE" tip="(s)" prof="C. Blaj" ora_i="11:00" ora_f="13:10" G="1" sapt="impare"
                />
