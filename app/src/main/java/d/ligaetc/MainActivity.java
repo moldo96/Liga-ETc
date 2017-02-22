@@ -5,9 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -29,60 +32,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.try1);
-        //File file = new File(getApplicationContext().getFilesDir(),"PROFIL.xml");
-        //if(!file.exists()){
-        //Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
-        // startActivity(intent);}
-        //else {
-        //Intent intent = new Intent(getApplicationContext(), TemporaryJob.class);
-        //startActivity(intent);
-        //}
+        setContentView(R.layout.main_activity);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.azi)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.maine)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.poimaine)));
 
 
-
-        //myToolbar.setTitleTextAppearance(getApplicationContext(),);
-
-        //setSupportActionBar(myToolbar);
-        //ActionBar actionBar = getSupportActionBar();
-        //actionBar.setDisplayShowHomeEnabled(true);
-        //actionBar.setLogo(R.drawable.logomic);
-        //actionBar.setTitle("Liga ETc");
-        //actionBar.setDisplayUseLogoEnabled(true);
-
-
-        TextView tv1 = (TextView) findViewById(R.id.textView1);
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.clickMe);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                File f = new File("PROFIL.xml");
-                    f.delete();
-                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                    startActivity(intent);
-
-            }
-        });
-        TimetableClass tc = new TimetableClass();
-        TimeClass t = new TimeClass();
-        //tv1.setText(tc.checkStudentGroup(getApplicationContext()));
-        subjectsList = t.checkDate(getApplicationContext(),4);
-        //tv1.setText(tc.getXmlData(getApplicationContext()));
-        //for(int i=0; i< subjectsList.size(); i++){
-        //if(t.getHourDifference(subjectsList.get(i).getOra_i(), subjectsList.get(i).getOra_f())=="A TRECUT"){
-        //subjectsList.remove(i);
-    //}
-        //}
-        //tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext(),0));
-        //tv1.setText(t.localdayFormat(Calendar.getInstance()));
-        //tv1.setText("" + t.getFoundPeriod());
-        //subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
-        //tv1.setText(tc.checkStudentGroup(getApplicationContext()));
-        //tc.checkStudentGroup(getApplicationContext(), "g");
-        //tv1.setText(tc.pac(subjectsList));
-        ArrayAdapter<Materie> adapter = new MyListAdapter(t);
-        ListView listView = (ListView) findViewById(R.id.list_materii);
-        listView.setAdapter(adapter);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
     }
 
@@ -168,5 +132,69 @@ tv.setText(currentMaterie.getAdditionalCommentString());
         });
         alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    void FAB(){
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.clickMe);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                File f = new File("PROFIL.xml");
+                f.delete();
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
+
+            }
+        });
+    }
+
+    void otherChecks(){
+        //File file = new File(getApplicationContext().getFilesDir(),"PROFIL.xml");
+        //if(!file.exists()){
+        //Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
+        // startActivity(intent);}
+        //else {
+        //Intent intent = new Intent(getApplicationContext(), TemporaryJob.class);
+        //startActivity(intent);
+        //}
+
+
+
+        //myToolbar.setTitleTextAppearance(getApplicationContext(),);
+
+        //setSupportActionBar(myToolbar);
+        //ActionBar actionBar = getSupportActionBar();
+        //actionBar.setDisplayShowHomeEnabled(true);
+        //actionBar.setLogo(R.drawable.logomic);
+        //actionBar.setTitle("Liga ETc");
+        //actionBar.setDisplayUseLogoEnabled(true);
+
+        //tv1.setText(tc.getXmlData(getApplicationContext()));
+        //for(int i=0; i< subjectsList.size(); i++){
+        //if(t.getHourDifference(subjectsList.get(i).getOra_i(), subjectsList.get(i).getOra_f())=="A TRECUT"){
+        //subjectsList.remove(i);
+        //}
+        //}
+        //tv1.setText(tv1.getText() +" " +t.checkDate(getApplicationContext(),0));
+        //tv1.setText(t.localdayFormat(Calendar.getInstance()));
+        //tv1.setText("" + t.getFoundPeriod());
+        //subjectsList = tc.OpenTimetable(getApplicationContext(), t.dayExtractor());
+        //tv1.setText(tc.checkStudentGroup(getApplicationContext()));
+        //tc.checkStudentGroup(getApplicationContext(), "g");
+        //tv1.setText(tc.pac(subjectsList));
+    }
+
+    public void working(int v)
+    {
+        setContentView(R.layout.try1);
+
+        TextView tv1 = (TextView) findViewById(R.id.textView1);
+        TimeClass t = new TimeClass();
+        //tv1.setText(tc.checkStudentGroup(getApplicationContext()));
+        subjectsList = t.checkDate(getApplicationContext(),v);
+
+        ArrayAdapter<Materie> adapter = new MyListAdapter(t);
+        ListView listView = (ListView) findViewById(R.id.list_materii);
+        listView.setAdapter(adapter);
     }
 }

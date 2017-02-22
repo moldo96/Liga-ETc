@@ -36,9 +36,10 @@ import java.util.ArrayList;
  * Created by Andrei on 06.02.2017.
  */
 
-public class TemporaryJob extends AppCompatActivity{
+public class TemporaryJob extends AppCompatActivity {
     String a;
     AlertDialog alertDialog;
+    ArrayList<Materie> subjectsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class TemporaryJob extends AppCompatActivity{
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.azi)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.maine)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.poimaine)));
-        tabLayout.setTabTextColors(getResources().getColor(R.color.colorYellow),getResources().getColor(R.color.colorWhite));
+        tabLayout.setTabTextColors(getResources().getColor(R.color.colorYellow), getResources().getColor(R.color.colorWhite));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         //setStatusBarTranslucent(true);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
@@ -70,20 +71,20 @@ public class TemporaryJob extends AppCompatActivity{
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_modificari:
                 showDialogBox("Modificari");
                 return true;
 
             case R.id.menu_sport:
-                Snackbar.make(findViewById(R.id.container),"S-a apasat sport",Snackbar.LENGTH_SHORT)
-                .show();
+                Snackbar.make(findViewById(R.id.container), "S-a apasat sport", Snackbar.LENGTH_SHORT)
+                        .show();
                 return true;
 
             case R.id.menu_teme:
-                Snackbar.make(findViewById(R.id.container),"S-a apasat teme",Snackbar.LENGTH_SHORT)
-                .show();
+                Snackbar.make(findViewById(R.id.container), "S-a apasat teme", Snackbar.LENGTH_SHORT)
+                        .show();
                 return true;
 
             default:
@@ -98,7 +99,7 @@ public class TemporaryJob extends AppCompatActivity{
         builder.setTitle(t);
         builder.setSingleChoiceItems(R.array.changes_array, 0, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if(which == 1)
+                if (which == 1)
                     a = getResources().getStringArray(R.array.changes_array)[1];
             }
         });
@@ -115,5 +116,28 @@ public class TemporaryJob extends AppCompatActivity{
         });
         alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void working(int v) {
+
+        //setContentView(R.layout.try1);
+
+        TextView tv1 = (TextView) findViewById(R.id.textView1);
+        TimeClass t = new TimeClass();
+        //tv1.setText(tc.checkStudentGroup(getApplicationContext()));
+        subjectsList = t.checkDate(getApplicationContext(), v);
+
+        ArrayAdapter<Materie> adapter = new TemporaryJob.MyListAdapter(t);
+        ListView listView = (ListView) findViewById(R.id.list_materii);
+        listView.setAdapter(adapter);
+    }
+
+    private class MyListAdapter extends ArrayAdapter<Materie> {
+        TimeClass t;
+
+        private MyListAdapter(TimeClass timeClass) {
+            super(TemporaryJob.this, R.layout.singlerow_list1, subjectsList);
+            t = timeClass;
+        }
     }
 }
