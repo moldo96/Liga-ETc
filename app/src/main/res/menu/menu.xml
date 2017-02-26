@@ -13,5 +13,8 @@
         android:title="@string/opt_sport"
         android:icon="@drawable/ic_sport"
         app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_deconectare"
+        android:title="@string/opt_deconectare"
+        app:showAsAction="never"/>
 
 </menu>

@@ -33,7 +33,7 @@ public class IntroActivity extends Activity {
                     startActivity(intent);
                 }
                 else{
-                    Intent intent = new Intent(getApplicationContext(), Try.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }
             }

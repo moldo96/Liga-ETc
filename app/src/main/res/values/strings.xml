@@ -31,6 +31,7 @@
     <string name="azi">Today</string>
     <string name="maine">Tomorrow</string>
     <string name="poimaine">In 2 Days</string>
+    <string name="opt_deconectare">Log out</string>
 
 
 </resources>

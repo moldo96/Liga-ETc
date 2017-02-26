@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".TemporaryJob">
         </activity>
+        <activity android:name=".IntroActivity">
+        </activity>
     </application>
 
 </manifest>

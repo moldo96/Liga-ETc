@@ -41,7 +41,7 @@ public class Try extends AppCompatActivity {
         setContentView(R.layout.try1);
         Intent intent = getIntent();
         TextView tv = (TextView) findViewById(R.id.textView1);
-        tv.setText(getNewXmlData());
+        tv.setText("You are not a student");
 
     }
 
